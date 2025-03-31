@@ -1,0 +1,57 @@
+*{
+    color: hotpink;
+}
+
+h1 {
+    color: red;
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 400;
+    font-family: "Times New Roman", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+}
+
+h2{
+    color: green;
+}
+
+h3{
+    color: blue;
+}
+
+h4{
+    color: grey;
+}
+
+li {
+    color: yellow;
+}
+.blue-color {
+    color:blue;
+}
+#outcome {
+    color: brown;
+}
+
+section {
+    text-align: center;
+    border: 1px solid green  ;
+}
+/* cmd / */
+/*
+curly braces {}
+square bracket []
+round brackets ()
+semicolon ;
+colon :
+syntax : rules of the lang
+parantheses <>
+hyphen - 
+dot.
+hash #
+}*/
+
+
+
+
