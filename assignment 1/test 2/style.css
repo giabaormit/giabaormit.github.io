@@ -1,0 +1,451 @@
+@charset “utf-8”;
+html {
+	font-size: 12px;
+}
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	vertical-align: baseline;
+	box-sizing: border-box;
+	font-weight: normal;
+}
+
+ul, ol {
+	list-style: none;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+h1, h2, h3, h4, h5, h6, b, strong {
+	font-size: inherit;
+	font-weight: inherit;
+}
+
+body {
+	font-family: "f_regular", "Helvetica Neue", "Helvetica", Helvetica, sans-serif;
+	font-size: 0.92rem;
+	line-height: 1.58;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+
+::selection {
+  color: #fff;
+  background: #000;
+}
+
+.bor {
+	border: 1px solid #000;
+}
+
+.b_l {
+	border-left: 1px solid #000;
+}
+
+.b_r {
+	border-right: 1px solid #000;
+}
+
+.b_t {
+	border-top: 1px solid #000;
+}
+
+.b_b {
+	border-bottom: 1px solid #000;
+}
+
+.red, .red .advent_door {
+	color: #000;
+	background: #ff1c3e;
+}
+
+.red .bor {
+	border: 1px solid #000;
+}
+
+.red .b_l {
+	border-left: 1px solid #000;
+}
+
+.red .b_r {
+	border-right: 1px solid #000;
+}
+
+.red .b_t {
+	border-top: 1px solid #000;
+}
+
+.red .b_b {
+	border-bottom: 1px solid #000;
+}
+
+.red a, .red a:hover, .red a:focus, .red a:active {
+	color: #000;
+}
+
+.red .p_left .p_text .p_circle {
+	background: #000;
+}
+
+.red .cnt_slides_numbers .slides_number {
+	color: #bb2929;
+}
+
+.red .advent_t > a {
+	color: #fff;
+}
+
+a, a:hover, a:focus, a:active {
+	color: #000;
+}
+
+a:hover, a:active {
+	text-decoration: underline;
+}
+
+
+/* ---------- cnt_main ----------	*/
+
+body {
+	overflow: hidden;
+	font-weight: 100;
+}
+
+.cnt_main {
+	width: 100vw;
+	height: 100vh;
+}
+
+/* ---------- cnt_left ----------	*/
+
+.cnt_left {
+	float: left;
+	width: 25vw;
+	height: 100vh;
+}
+
+.advent_story {
+	width: 100%;
+	height: 16.66%;
+	font-size: 0.92rem;
+}
+
+.advent_story .advent_column > span {
+	position: absolute;
+	top: 1rem;
+	left: 4.5rem;
+}
+
+.advent_column {
+	float: left;
+	height: 100%;
+	position: relative;
+}
+
+.advent_column.w25 {
+	width: 25%;
+	background: #000;
+	position: relative;
+}
+
+.advent_column.w50 {
+	width: 50%;
+	padding: 1rem;
+}
+
+.advent_column.w75 {
+	width: 75%;
+	padding: 1rem;
+}
+
+.advent_door {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background: #fff;
+	padding: 1rem;
+	z-index: 200;
+}
+
+
+
+/* ---------- cnt_right ----------	*/
+
+.cnt_right {
+	float: left;
+	width: 75vw;
+	height: 100vh;
+	overflow-y: auto;
+}
+
+.project {
+	width: 100%;
+	padding: 2rem;
+}
+
+.p_left {
+	float: left;
+	width: 22.5vw;
+}
+
+.p_left .p_text {
+	position: relative;
+}
+
+.p_left .p_text .p_circle, .cnt_page .p_circle {
+	position: absolute;
+	left: 0rem;
+	top: 0.32rem;
+	width: 1.24rem;
+	height: 1.24rem;
+	border-radius: 1.24rem;
+	background: #000;
+}
+
+
+.p_left .p_t1 {
+	font-family: "f_medium";
+	font-size: 1.4rem;
+	line-height: 1.3;
+	white-space: nowrap; 
+  width: 90%; 
+  overflow: hidden;
+  text-decoration: underline;
+  text-overflow: ellipsis;
+}
+
+.p_left .p_t2 {
+	line-height: 1.3;
+	margin-top: 0.2rem;
+}
+
+.p_left .p_body {
+	margin-top: 2rem;
+}
+
+.p_left .p_body > p {
+  overflow: hidden;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  margin-bottom: 1.5rem;
+}
+
+.p_left .p_body .info th {
+	text-align: left;
+	width: 10rem;
+}
+
+.p_right {
+	float: right;
+	width: 47.2vw;
+}
+
+.p_right .cnt_slides, .p_right .slides_img, .p_right .slides_img > img {
+	width: 100%;
+}
+
+.cnt_slides {
+	position: relative;
+	content: '';
+	width: 100%;
+	min-height: 31.45vw;
+	background: #000;
+	line-height: 0;
+}
+
+.cnt_slides .slides_img {
+	display: none;
+	z-index: 10;
+}
+
+.cnt_slides_numbers {
+	margin-top: 1rem;
+	text-align: right;
+	line-height: 0.8;
+}
+
+.cnt_slides_numbers > span {
+	display: inline-block;
+	font-size: 1.1rem;
+	width: 1.2rem;
+}
+
+.cnt_slides_numbers .slides_des {
+	float: left;
+	text-align: left;
+	width: 80%;
+	height: 1.2rem;
+	overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.cnt_slides_numbers .slides_number {
+	cursor: pointer;
+	color: #ddd;
+}
+
+.cnt_slides_numbers .slides_number:hover, .cnt_slides_numbers .slides_number:focus, .cnt_slides_numbers .slides_number:active {
+	color: #000;
+}
+
+.cnt_slides_numbers .slides_number.active {
+	color: #000;
+}
+
+/* ---------- page - project ----------	*/
+
+.cnt_list {
+	width: 100%;
+	height: 100vh;
+}
+
+.cnt_page {
+	width: 100%;
+}
+
+.cnt_page .cnt_left {
+	overflow-y: auto;
+}
+
+.cnt_page .page_text {
+	width: 100%;
+}
+
+.cnt_page .page_text.project {
+	padding-right: 0.2rem;
+}
+
+.cnt_page .page_text .page_title {
+	padding-top: 1.2rem;
+	padding-bottom: 4rem;
+}
+
+.page_text .page_title .p_circle {
+	width: 0.95rem;
+	height: 0.95rem;
+	border-radius: 0.95rem;
+	top: 0.3rem;
+}
+
+.page_text .page_title .t1 {
+	position: relative;
+	font-size: 1.2rem;
+	line-height: 1.4;
+	padding-left: 4rem;
+}
+
+.page_text .page_title .t2 {
+	display: none;
+}
+
+.page_text .page_body {
+	width: 96%;
+	margin-bottom: 2rem;
+}
+
+.page_text .page_info {
+	margin-top: 2rem;
+	margin-bottom: 2rem;
+}
+
+.page_text .info th {
+	width: 9rem;
+	text-align: left;
+}
+
+.page_images {
+	width: 100%;
+	line-height: 0;
+}
+
+.page_images > img {
+	width: 100%;
+	height: auto;
+	margin-bottom: 2rem;
+}
+
+@keyframes ani_about_wiggle {
+  0%, 7% {
+    transform: translate(-5rem, -6.2rem) rotateZ(0);
+  }
+  15% {
+    transform: translate(-5rem, -6.2rem) rotateZ(-15deg);
+  }
+  20% {
+    transform: translate(-5rem, -6.2rem) rotateZ(10deg);
+  }
+  25% {
+    transform: translate(-5rem, -6.2rem) rotateZ(-10deg);
+  }
+  30% {
+    transform: translate(-5rem, -6.2rem) rotateZ(6deg);
+  }
+  35% {
+    transform: translate(-5rem, -6.2rem) rotateZ(-4deg);
+  }
+  40%, 100% {
+    transform: translate(-5rem, -6.2rem) rotateZ(0);
+  }
+}
+
+.advent_column .wiggle:hover {
+	animation: ani_wiggle ease-in-out 1s;
+}
+
+@media only screen and (max-width: 768px) {
+  html {font-size:12px}
+  body {overflow: initial;}
+  .project {padding:1.4rem 1.1rem 1.2rem 1.1rem;}
+  .cnt_left, .cnt_right {float:initial;width:100%;height:100%;}
+  .cnt_left.b_r {border-right:none;border-bottom:1px solid #000;}
+  .cnt_right {overflow-y:initial;padding-bottom:20rem;}
+  .advent_column {font-size: 0.85rem;}
+  .advent_column.home {padding:1.2rem;}
+  .advent_column.home > a {font-size:1.8rem;}
+  .advent_t {margin-top: 5%;}
+  .cnt_slides {min-height:60.25vw;margin-top:2.1rem;}
+  .p_left .p_text .p_t {margin-left:4rem;}
+  .p_left, .p_right {float:initial;width:100%;}
+  .p_body {display:none;}
+  .cnt_slides_numbers {margin-top:0.6rem;}
+  .cnt_slides_numbers .slides_des {display: none;}
+  .cnt_slides_numbers > span {font-size: 1rem;}
+  .advent_c > img {margin-top: 8%}
+  .page_text .page_title .t1 {padding-left:3.8rem;font-size:1.25rem;}
+  .page_images > img {margin-bottom: 1rem;}
+  .page_nav {width:100%;padding:1.2rem;margin-bottom:0;background:#fff;}
+  .cnt_page {position:relative;}
+  .cnt_page .cnt_left {height:initial;}
+  .cnt_page .project {padding:1rem;}
+  .cnt_page .page_text.project {padding:1rem;}
+  .cnt_page .page_text .page_title .p_circle {left:0.2rem;top:0.4rem;}
+  .cnt_page .cnt_left .page_body {width:100%}
+  .cnt_page .cnt_left .page_body > p {padding:0 0.2rem;}
+  .cnt_page .cnt_left .page_text .info th {padding-left:0.2rem;}
+  .index > li > p {padding-left:3.8rem;}
+  #footer .f_left {float:right;}
+  .cnt_page #footer {padding-bottom:6rem;}
+  .style_about {font-size:2rem;line-height:1.3;padding:1.2rem;}
+  #aboutBtn > span {font-size:1.6rem;margin-top:0;}
+  .text_hide > img {width:6rem;transform:translate(-3rem, -3.5rem);}
+  div#passwordContainer {width:29rem;margin-left:-14.5rem;}
+  div#videoContainer, div#pfContainer {height:88.4vh;}
+}
+

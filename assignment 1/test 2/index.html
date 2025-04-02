@@ -1,0 +1,189 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MYOUNGAE KIM</title>
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+  </head>
+
+  <body>    
+    <div class="cnt_main">
+
+
+      <div class="cnt_left b_r">
+        <div class="advent_story b_b">
+          <div class="home advent_column w75"><a href="https://www.myoungaekim.com">MYOUNGAE KIM</a></div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">1</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_05.png" class="wiggle">
+              </div>
+          </div>
+        </div>
+        <div class="advent_story b_b">
+          <div class="advent_column w25">
+              <div class="advent_door">2</div>
+              <div class="advent_t"><br><br>Form follows<br>function</div>
+          </div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">3</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_07.png" class="wiggle">
+              </div>
+          </div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">4</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_08.png" class="wiggle">
+              </div>
+          </div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">5</div>
+              <div class="advent_t"><br><br><a href="#" id="toggleRed">Merry<br>Christmas!</a></div>
+          </div>
+        </div>
+        <div class="advent_story b_b">
+          <div class="advent_column w25">
+              <div class="advent_door">6</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_03.png" class="wiggle">
+              </div>
+          </div>
+          <div class="advent_column w75 b_l">7<span>Multi-disciplinary<br>Graphic and Digital Designer</span></div>
+        </div>
+        <div class="advent_story b_b">
+          <div class="advent_column w50">8<span>Visual Identity<br>Digital, Interaction, Coding<br>Motion Graphics</span></div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">9</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_06.png" class="wiggle">
+              </div>
+          </div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">10</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_04.png" class="wiggle">
+              </div>
+          </div>
+        </div>
+        <div class="advent_story b_b">
+          <div class="advent_column w25">
+              <div class="advent_door">11</div>
+              <div class="advent_t"><br><br>The devil<br>is in the details</div>
+          </div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">12</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_02.png" class="wiggle">
+              </div>
+          </div>
+          <div class="advent_column w50 b_l">13<span>Click the boxes <br>to explore</span>
+          </div>
+        </div>
+        <div class="advent_story">
+          <div class="advent_column w75">14
+            <span>
+              <a href="mailto:myoungae.k@gmail.com" target="_blank">myoungae.k@gmail.com</a><br>
+              <a href="https://www.instagram.com/myoungae.k/" target="_blank">@myoungae.k</a><br>
+              <a href="https://www.linkedin.com/in/myoungaekim/" target="_blank">in/myoungaekim</a>
+              <br><br>The website is designed and developed<br>by <a href="pages/page_about.html">MyoungAe Kim</a>
+            </span>
+          </div>
+          <div class="advent_column w25 b_l">
+              <div class="advent_door">15</div>
+              <div class="advent_c">
+                <div class="advent_shadow"></div>
+                <img src="images/elements_01.png" class="wiggle">
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div class="cnt_right">
+        
+
+        <!-- footer -->
+        <div id="footer" class="project clear">
+          <span class="f_left">LAST UPDATED 21 DEC, 2023 — MERRY CHRISTMAS!</span>
+          <span class="f_right">© MYOUNGAE KIM</span>
+        </div>
+        
+      </div>
+
+
+    </div>
+
+    <script>
+      let slideIndex = [0, 0, 0, 0, 0, 0];
+      let slideshowIntervals = [null, null, null, null, null, null];
+      let projectNum = 6;
+
+      function showSlides(n, galleryIndex) {
+        let i;
+        let slides = document.querySelectorAll("#gallery" + galleryIndex + " .slides_img");
+        let dots = document.querySelectorAll("#gallery" + galleryIndex + " .slides_number");
+        
+        if (n > slides.length) { slideIndex[galleryIndex - 1] = 1 }
+        if (n < 1) { slideIndex[galleryIndex - 1] = slides.length }
+        
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";
+        }
+        
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        
+        slides[slideIndex[galleryIndex - 1] - 1].style.display = "block";
+        dots[slideIndex[galleryIndex - 1] - 1].className += " active";
+      }
+
+      function currentSlide(n, galleryIndex) {
+        stopSlideshow(galleryIndex);
+        showSlides(slideIndex[galleryIndex - 1] = n, galleryIndex);
+        autoSlide(galleryIndex);
+      }
+
+      function autoSlide(galleryIndex) {
+        stopSlideshow(galleryIndex);
+        slideshowIntervals[galleryIndex - 1] = setInterval(function () {
+          showSlides(slideIndex[galleryIndex - 1] += 1, galleryIndex);
+        }, 3000);
+      }
+
+      function stopSlideshow(galleryIndex) {
+        clearInterval(slideshowIntervals[galleryIndex - 1]);
+      }
+
+      function pauseOnHover(galleryIndex) {
+        stopSlideshow(galleryIndex);
+      }
+
+      function resumeOnLeave(galleryIndex) {
+        autoSlide(galleryIndex);
+      }
+      // Add event listeners for mouseover and mouseleave
+      for (let i = 1; i <= projectNum; i++) {
+        const galleryElement = document.querySelector("#gallery" + i);
+        galleryElement.addEventListener("mouseenter", () => pauseOnHover(i));
+        galleryElement.addEventListener("mouseleave", () => resumeOnLeave(i));
+      }
+
+    </script>
+
+  </body>
+  
+</html>
