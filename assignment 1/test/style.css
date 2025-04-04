@@ -1,8 +1,15 @@
+/* The reason I go for this analogous color palette due to personal preference and 
+it's truly express me the most. Most of my project is based on Minimalistic design style.
+It shows how I usually solve my problems (straightforward and simple). Moreover, the
+color scheme is rather user-friendly and relaxing */
+
+/* Reset default margin and padding */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
+/* Define the whole content text with overflow: hidden to prevent scrolling */
 body {
     display: flex;
     flex-direction: column;
@@ -14,6 +21,8 @@ body {
     overflow: hidden;   
     color:rgb(44, 44, 44)
 }
+/* This is the box outside cover all the button with added bevel, flexbox , added shadow
+and border to define the box content  */
 .container {
     display: flex;
     flex-direction: column;
@@ -26,6 +35,7 @@ body {
     background-color: rgb(148, 148, 148);
     border-radius: 25px;
 }
+/* This is the styling for the title "Interactive Experience review"  */
 .title {
     font-size: 24px;
     font-weight: bold;
@@ -34,6 +44,8 @@ body {
     font-family: Helvetica, sans-serif;
     color:rgb(255, 255, 255)
 }
+/* This is the box contain all the texts with grid-template-columns definition to 
+repeat 5 times in a row*/
 .grid-container {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -41,6 +53,7 @@ body {
     width: 90vw;
     height: 60vh;
 }
+/* The actual box content of the web with additional transition animation delay, cursor definement and bevel  */
 .grid-item {
     display: flex;
     justify-content: center;
@@ -53,10 +66,12 @@ body {
     transition: background-color 0.3s;
     border-radius: 25px;
 }
+/* Color change during the delay of the animation between each click */
 .grid-item:active {
     background-color: #000;
     color: white;
 }
+/* define the 3x5 grid horizontally with responsive adjustment */
 @media (max-width: 768px) {
 .grid-container {
 grid-template-columns: repeat(3, 1fr);
