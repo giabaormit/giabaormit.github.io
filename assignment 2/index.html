@@ -47,7 +47,16 @@
               height="24"
             />
           </button>
-          <!-- add the missing buttons or functionality here -->
+         <!-- Jump Backward 10s Button -->
+<button id="backward-btn" onclick="jumpBackward()">
+    ⏪ 10s
+  </button>
+  
+  <!-- Jump Forward 10s Button -->
+  <button id="forward-btn" onclick="jumpForward()">
+    10s ⏩
+  </button>
+  
           <div class="progress-bar">
             <span id="progress-bar-fill"></span>
           </div>
@@ -58,6 +67,13 @@
       <section>
         <h2>Additional Content</h2>
         <p>This is where you can showcase any other relevant content.</p>
+ <!-- Volume adjustment -->
+ <div class="volume-control">
+    <button id="mute-button">🔊</button>
+    <input type="range" id="volume-slider" min="0" max="1" step="0.01" value="1">
+    <span id="volume-percentage">100%</span>
+  </div>
+  
         <!-- Add more content as needed -->
       </section>
     </main>
