@@ -16,16 +16,15 @@ function updateVolumeUI() {
   volumePercentage.textContent = Math.round(volume * 100) + '%';
 
   // Update mute icon
-  if (video.muted || volume === 0) {
-    muteButton.textContent = '🔇';
-  } else if (volume <= 0.3) {
-    muteButton.textContent = '🔈';
-  } else if (volume <= 0.7) {
-    muteButton.textContent = '🔉';
+  // Inside updateVolumeUI:
+if (video.muted || volume === 0) {
+    muteButton.innerHTML = '<img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/volume-x.svg" width="24" height="24" />';
+  } else if (volume <= 0.5) {
+    muteButton.innerHTML = '<img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/volume-1.svg" width="24" height="24" />';
   } else {
-    muteButton.textContent = '🔊';
+    muteButton.innerHTML = '<img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/volume-2.svg" width="24" height="24" />';
   }
-
+  
   // Update slider background based on volume
   let color;
   if (volume <= 0.3) {
@@ -79,13 +78,25 @@ video.addEventListener('timeupdate', function() {
 
 // Jump forward 10 seconds
 function jumpForward() {
-  video.currentTime = Math.min(video.currentTime + 10, video.duration);
-}
+    video.currentTime = Math.min(video.currentTime + 10, video.duration);
+    showJumpOverlay("+10s");
+  }
 
 // Jump backward 10 seconds
 function jumpBackward() {
   video.currentTime = Math.max(video.currentTime - 10, 0);
+  showJumpOverlay("−10s");
 }
-
 // Initialize UI
 updateVolumeUI();
+
+function showJumpOverlay(text) {
+    const overlay = document.getElementById('jump-overlay');
+    overlay.textContent = text;
+    overlay.classList.add('show');
+  
+    setTimeout(() => {
+      overlay.classList.remove('show');
+    }, 600);
+  }
+  
