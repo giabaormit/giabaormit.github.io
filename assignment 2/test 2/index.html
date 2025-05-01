@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media player</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=REM:ital,wght@0,100..900;1,100..900&family=Tuffy:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <header></header>
+    <main class="double-border">
+      <div class="main-screen">
+        <div class="media-player">
+          <video id="my-video">
+            <source
+              src="https://thelongesthumstore.sgp1.cdn.digitaloceanspaces.com/IM-2250/miac.mp4"
+              type="video/mp4"
+            />
+          </video>
+          <div class="controls">
+            <button id="play-pause-button" class="double-border">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/play--v2.png"
+                alt=""
+                id="play-pause-img"
+              />
+            </button>
+            <button id="mute-unmute-button" class="double-border">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/no-audio--v1.png"
+                alt=""
+                id="mute-unmute-img"
+              />
+            </button>
+            <button id="rewind-button" class="double-border">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/rewind.png"
+                alt="rewind"
+                id="rewind-img"
+              />
+            </button>
+            <button id="forward-button" class="double-border">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/fast-forward.png"
+                alt="forward"
+                id="forward-img"
+              />
+            </button>
+            <button id="speed-button" class="double-border">
+                <span id="speed-label">1x</span>
+              </button>
+            <div id="progress-bar-container">
+              <span id="progress-bar"></span>
+            </div>
+            <button id="fullscreen-button" class="double-border">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/full-screen--v1.png"
+                alt=""
+                id="fullscreen-img"
+              />
+            </button>
+            <button id="heart-button" class="double-border">
+              <img
+                src="https://img.icons8.com/ios-glyphs/30/like--v1.png"
+                alt=""
+                id="heart-img"
+              />
+            </button>
+            <div id="likes">0</div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer>Icons by <a href="https://icons8.com/">Icons8</a></footer>
+  </body>
+</html>
