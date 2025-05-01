@@ -89,6 +89,14 @@ body {
     scale: 0.9;
     background-color: rgba(250, 235, 215, 0.25);
   }
+  #speed-button {
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 10px;
+    background-color: rgba(250, 235, 215, 0.588);
+    border-radius: 12px;
+    scale: 0.9;
+  }
   
   #likes {
     font-size: 2.2rem;
