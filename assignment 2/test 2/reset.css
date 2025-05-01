@@ -45,10 +45,3 @@ p {
     scroll-padding-top: 3rem;
   }
 }
-#speed-button {
-  font-weight: bold;
-  font-size: 1rem;
-  padding: 0.4em 0.8em;
-  background-color: #eee;
-  border-radius: 6px;
-}
