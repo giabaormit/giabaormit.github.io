@@ -1,26 +1,29 @@
-   *, *::before, *::after {
-      box-sizing: border-box;
+/* Reset CSS - Removes default browser styling inconsistencies */
+    *, *::before, *::after {
+      box-sizing: border-box; /* Makes padding and border included in element's width/height */
     }
     * {
-      margin: 0;
-      padding: 0;
-      font: inherit;
+      margin: 0; /* Removes default margins from all elements */
+      padding: 0; /* Removes default padding from all elements */
+      font: inherit; /* Makes all elements inherit font properties from parent */
     }
     html {
-      color-scheme: dark light;
-      hanging-punctuation: first last;
+      color-scheme: dark light; /* Tells browser to support both light and dark themes */
+      hanging-punctuation: first last; /* Improves text rendering by hanging punctuation */
     }
     body {
-      min-height: 100vh;
+      min-height: 100vh; /* Ensures body takes at least full viewport height */
+      max-height: 100vh; /* FIXED: Prevents body from exceeding viewport height */
+      overflow: hidden; /* FIXED: Prevents any scrollbars from appearing */
     }
     img, picture, svg, video {
-      display: block;
-      max-width: 100%;
+      display: block; /* Removes inline spacing issues */
+      max-width: 100%; /* Prevents images from overflowing containers */
     }
     h1, h2, h3, h4, h5, h6 {
-      text-wrap: balance;
+      text-wrap: balance; /* Improves heading text wrapping for better readability */
     }
     p {
-      max-width: 75ch;
-      text-wrap: pretty;
+      max-width: 75ch; /* Limits paragraph width to 75 characters for optimal reading */
+      text-wrap: pretty; /* Improves paragraph text wrapping */
     }
