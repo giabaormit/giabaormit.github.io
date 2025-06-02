@@ -9,40 +9,48 @@
   <script src="script.js" defer></script>
 </head>
 <body>
+ <!-- Main container that holds all game elements -->
   <div class="game-container">
+    <!-- Header section containing title, controls, and stats -->
     <header>
       <h1>🎬 Digital Media Memory Game</h1>
+      <!-- Control buttons for game functionality -->
       <div class="controls">
-        <button id="resetBtn">↻ Reset</button>
-        <button id="hintBtn">💡 Hint</button>
+        <button id="resetBtn">↻ Reset</button> <!-- Resets the entire game -->
+        <button id="hintBtn">💡 Hint</button> <!-- Shows all cards briefly -->
         <label for="themeSelect">
-          <select id="themeSelect">
+          <select id="themeSelect"> <!-- Theme switcher dropdown -->
             <option value="light">☀ Light</option>
             <option value="dark">🌙 Dark</option>
           </select>
         </label>
       </div>
+      <!-- Game statistics display -->
       <div class="stats">
-        <span>⏱️ Time: <span id="timer">00:00</span></span>
-        <span>🎯 Moves: <span id="moves">0</span></span>
+        <span>⏱️ Time: <span id="timer">00:00</span></span> <!-- Elapsed time counter -->
+        <span>🎯 Moves: <span id="moves">0</span></span> <!-- Move counter -->
       </div>
     </header>
 
+    <!-- Left sidebar showing completed matches -->
     <div class="completed-matches">
       <h3>✅ Completed Matches</h3>
-      <div id="completedList"></div>
+      <div id="completedList"></div> <!-- Dynamic list of matched pairs -->
     </div>
 
+    <!-- Main game area containing the card grid -->
     <div class="game-area">
-      <div class="game-board" id="gameBoard"></div>
+      <div class="game-board" id="gameBoard"></div> <!-- Cards are dynamically added here -->
     </div>
 
+    <!-- Right sidebar showing fun facts -->
     <div class="fun-facts">
       <h3>💡 Fun Facts</h3>
       <div id="funFact" class="hidden">Click on matching cards to learn interesting facts!</div>
     </div>
   </div>
 
+  <!-- Modal that appears when game is completed -->
   <div id="celebration" class="hidden">
     <div class="celebration-content">
       <h2>🎉 Congratulations! 🎉</h2>
@@ -52,5 +60,3 @@
       <button id="playAgainBtn">🔄 Play Again</button>
     </div>
   </div>
-</body>
-</html>
