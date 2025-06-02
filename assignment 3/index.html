@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Digital Media Memory Game</title>
+  <link rel="stylesheet" href="reset.css" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="game-container">
+    <header>
+      <h1>🎬 Digital Media Memory Game</h1>
+      <div class="controls">
+        <button id="resetBtn">↻ Reset</button>
+        <button id="hintBtn">💡 Hint</button>
+        <label for="themeSelect">
+          <select id="themeSelect">
+            <option value="light">☀ Light</option>
+            <option value="dark">🌙 Dark</option>
+          </select>
+        </label>
+      </div>
+      <div class="stats">
+        <span>⏱️ Time: <span id="timer">00:00</span></span>
+        <span>🎯 Moves: <span id="moves">0</span></span>
+      </div>
+    </header>
+
+    <div class="completed-matches">
+      <h3>✅ Completed Matches</h3>
+      <div id="completedList"></div>
+    </div>
+
+    <div class="game-area">
+      <div class="game-board" id="gameBoard"></div>
+    </div>
+
+    <div class="fun-facts">
+      <h3>💡 Fun Facts</h3>
+      <div id="funFact" class="hidden">Click on matching cards to learn interesting facts!</div>
+    </div>
+  </div>
+
+  <div id="celebration" class="hidden">
+    <div class="celebration-content">
+      <h2>🎉 Congratulations! 🎉</h2>
+      <p>You completed the game!</p>
+      <p><strong>Time:</strong> <span id="finalTime"></span></p>
+      <p><strong>Moves:</strong> <span id="finalMoves"></span></p>
+      <button id="playAgainBtn">🔄 Play Again</button>
+    </div>
+  </div>
+</body>
+</html>

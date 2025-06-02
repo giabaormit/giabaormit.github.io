@@ -1,11 +1,701 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <!-- Sets character encoding to UTF-8 for proper text display -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <!-- Makes the page responsive by setting viewport width to device width -->
+  <title>Digital Media Memory Game</title>
+  <style>
+    /* Reset CSS - Removes default browser styling inconsistencies */
+    *, *::before, *::after {
+      box-sizing: border-box; /* Makes padding and border included in element's width/height */
+    }
+    * {
+      margin: 0; /* Removes default margins from all elements */
+      padding: 0; /* Removes default padding from all elements */
+      font: inherit; /* Makes all elements inherit font properties from parent */
+    }
+    html {
+      color-scheme: dark light; /* Tells browser to support both light and dark themes */
+      hanging-punctuation: first last; /* Improves text rendering by hanging punctuation */
+    }
+    body {
+      min-height: 100vh; /* Ensures body takes at least full viewport height */
+      max-height: 100vh; /* FIXED: Prevents body from exceeding viewport height */
+      overflow: hidden; /* FIXED: Prevents any scrollbars from appearing */
+    }
+    img, picture, svg, video {
+      display: block; /* Removes inline spacing issues */
+      max-width: 100%; /* Prevents images from overflowing containers */
+    }
+    h1, h2, h3, h4, h5, h6 {
+      text-wrap: balance; /* Improves heading text wrapping for better readability */
+    }
+    p {
+      max-width: 75ch; /* Limits paragraph width to 75 characters for optimal reading */
+      text-wrap: pretty; /* Improves paragraph text wrapping */
+    }
+
+    /* Main Styles - Monochrome Theme */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Sets font stack with fallbacks */
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); /* Creates diagonal gradient background */
+      color: #212529; /* Sets default text color */
+      transition: all 0.3s ease; /* Smooth transitions for theme changes */
+    }
+
+    body.dark {
+      background: linear-gradient(135deg, #212529 0%, #343a40 100%); /* Dark theme gradient */
+      color: #f8f9fa; /* Light text for dark theme */
+    }
+
+    .game-container {
+      max-width: 1200px; /* Limits container width for better layout */
+      margin: 0 auto; /* Centers container horizontally */
+      padding: 20px; /* Adds internal spacing */
+      display: grid; /* Uses CSS Grid for layout */
+      grid-template-columns: 1fr 3fr 1fr; /* Creates 3-column layout: sidebar, main, sidebar */
+      grid-template-rows: auto 1fr; /* FIXED: Creates 2-row layout: header, content */
+      gap: 20px; /* Adds space between grid items */
+      height: 100vh; /* FIXED: Sets container to full viewport height */
+      box-sizing: border-box; /* FIXED: Includes padding in height calculation */
+    }
+
+    /* Header */
+    header {
+      grid-column: 1 / -1; /* Spans header across all columns */
+      grid-row: 1; /* FIXED: Places header in first row */
+      text-align: center; /* Centers header content */
+      padding: 15px; /* FIXED: Reduced padding to save space */
+      background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
+      border-radius: 12px; /* Rounds corners */
+      backdrop-filter: blur(10px); /* Creates glass effect */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Adds subtle shadow */
+      display: flex; /* FIXED: Uses flexbox for internal layout */
+      flex-direction: column; /* FIXED: Stacks header elements vertically */
+      justify-content: center; /* FIXED: Centers content vertically */
+    }
+
+    body.dark header {
+      background: rgba(33, 37, 41, 0.8); /* Dark theme header background */
+    }
+
+    h1 {
+      font-size: 2rem; /* FIXED: Reduced font size to save space */
+      font-weight: 700; /* Bold font weight */
+      margin-bottom: 10px; /* FIXED: Reduced margin */
+      background: linear-gradient(45deg, #495057, #6c757d); /* Gradient text effect */
+      -webkit-background-clip: text; /* Clips background to text shape */
+      -webkit-text-fill-color: transparent; /* Makes text transparent to show gradient */
+      background-clip: text; /* Standard property for background clipping */
+    }
+
+    .controls {
+      display: flex; /* Arranges controls horizontally */
+      justify-content: center; /* Centers controls */
+      flex-wrap: wrap; /* Allows wrapping on small screens */
+      gap: 15px; /* Space between control elements */
+      margin: 10px 0; /* FIXED: Reduced margin */
+    }
+
+    button, select {
+      padding: 8px 12px; /* FIXED: Reduced padding to save space */
+      font-size: 0.9rem; /* FIXED: Smaller font size */
+      font-weight: 500; /* Medium font weight */
+      border-radius: 8px; /* Rounded corners */
+      border: 2px solid #6c757d; /* Border styling */
+      background: #fff; /* White background */
+      color: #495057; /* Dark text */
+      cursor: pointer; /* Shows clickable cursor */
+      transition: all 0.3s ease; /* Smooth hover transitions */
+      display: flex; /* Flexbox for icon alignment */
+      align-items: center; /* Centers content vertically */
+      gap: 8px; /* Space between icon and text */
+    }
+
+    body.dark button, body.dark select {
+      background: #343a40; /* Dark theme button background */
+      color: #f8f9fa; /* Light text for dark theme */
+      border-color: #495057; /* Dark theme border color */
+    }
+
+    button:hover {
+      background: #6c757d; /* Hover background color */
+      color: #fff; /* White text on hover */
+      transform: translateY(-2px); /* Lifts button slightly */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Adds shadow on hover */
+    }
+
+    body.dark button:hover {
+      background: #495057; /* Dark theme hover color */
+    }
+
+    .stats {
+      display: flex; /* Arranges stats horizontally */
+      justify-content: center; /* Centers stats */
+      gap: 30px; /* Space between stat items */
+      font-size: 1rem; /* FIXED: Reduced font size */
+      font-weight: 600; /* Semi-bold text */
+      margin-top: 10px; /* FIXED: Reduced margin */
+    }
+
+    /* Left Sidebar - Completed Matches */
+    .completed-matches {
+      grid-column: 1; /* Places in first column */
+      grid-row: 2; /* FIXED: Places in second row */
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+      border-radius: 12px; /* Rounded corners */
+      padding: 15px; /* FIXED: Reduced padding */
+      backdrop-filter: blur(10px); /* Glass effect */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      overflow-y: auto; /* FIXED: Allows scrolling within sidebar if needed */
+      max-height: 100%; /* FIXED: Prevents overflow */
+    }
+
+    body.dark .completed-matches {
+      background: rgba(33, 37, 41, 0.9); /* Dark theme background */
+    }
+
+    .completed-matches h3 {
+      font-size: 1.1rem; /* FIXED: Slightly smaller heading */
+      font-weight: 600; /* Semi-bold */
+      margin-bottom: 15px; /* Space below heading */
+      text-align: center; /* Centers heading */
+      color: #495057; /* Dark text */
+    }
+
+    body.dark .completed-matches h3 {
+      color: #f8f9fa; /* Light text for dark theme */
+    }
+
+    .match-item {
+      display: flex; /* Horizontal layout */
+      align-items: center; /* Vertical alignment */
+      gap: 10px; /* Space between icon and text */
+      padding: 8px; /* FIXED: Reduced padding */
+      margin-bottom: 6px; /* FIXED: Reduced margin */
+      background: rgba(108, 117, 125, 0.1); /* Light background */
+      border-radius: 8px; /* Rounded corners */
+      font-size: 0.85rem; /* FIXED: Smaller font */
+    }
+
+    .match-item-icon {
+      width: 25px; /* FIXED: Smaller icon */
+      height: 25px; /* FIXED: Smaller icon */
+      background: #6c757d; /* Icon background color */
+      border-radius: 4px; /* Rounded corners */
+      display: flex; /* Centers icon content */
+      align-items: center; /* Vertical centering */
+      justify-content: center; /* Horizontal centering */
+      color: white; /* White icon text */
+      font-size: 0.7rem; /* FIXED: Smaller icon text */
+    }
+
+    /* Game Board */
+    .game-area {
+      grid-column: 2; /* Places in middle column */
+      grid-row: 2; /* FIXED: Places in second row */
+      display: flex; /* Flexbox layout */
+      flex-direction: column; /* Vertical stacking */
+      align-items: center; /* Centers content horizontally */
+      justify-content: center; /* FIXED: Centers content vertically */
+      overflow: hidden; /* FIXED: Prevents overflow */
+    }
+
+    .game-board {
+      display: grid; /* Grid layout for cards */
+      grid-template-columns: repeat(4, 1fr); /* 4 equal columns */
+      gap: 12px; /* FIXED: Reduced gap between cards */
+      padding: 15px; /* FIXED: Reduced padding */
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+      border-radius: 12px; /* Rounded corners */
+      backdrop-filter: blur(10px); /* Glass effect */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    body.dark .game-board {
+      background: rgba(33, 37, 41, 0.9); /* Dark theme background */
+    }
+
+    .card {
+      position: relative; /* Allows absolute positioning of inner elements */
+      width: 80px; /* FIXED: Smaller card size */
+      height: 80px; /* FIXED: Smaller card size */
+      perspective: 1000px; /* Sets 3D perspective for flip effect */
+      cursor: pointer; /* Shows clickable cursor */
+    }
+
+    .card-inner {
+      position: absolute; /* Positions relative to card */
+      width: 100%; /* Full card width */
+      height: 100%; /* Full card height */
+      transition: transform 0.6s ease; /* Smooth flip animation */
+      transform-style: preserve-3d; /* Maintains 3D transformations */
+    }
+
+    .card.flipped .card-inner {
+      transform: rotateY(180deg); /* Flips card when .flipped class is added */
+    }
+
+    .card-front, .card-back {
+      position: absolute; /* Overlapping positioning */
+      width: 100%; /* Full card dimensions */
+      height: 100%; /* Full card dimensions */
+      border-radius: 10px; /* Rounded corners */
+      backface-visibility: hidden; /* Hides back face during flip */
+      display: flex; /* Centers content */
+      flex-direction: column; /* Vertical stacking */
+      align-items: center; /* Horizontal centering */
+      justify-content: center; /* Vertical centering */
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+
+    .card-front {
+      background: linear-gradient(135deg, #adb5bd, #6c757d); /* Gradient background */
+      border: 2px solid #495057; /* Border styling */
+    }
+
+    .card-front::after {
+      content: "?"; /* Adds question mark to front of card */
+      font-size: 1.5rem; /* FIXED: Smaller question mark */
+      font-weight: bold; /* Bold text */
+      color: #fff; /* White color */
+    }
+
+    .card-back {
+      transform: rotateY(180deg); /* Initially flipped to back */
+      background: #fff; /* White background */
+      border: 2px solid #dee2e6; /* Light border */
+      color: #495057; /* Dark text */
+    }
+
+    body.dark .card-back {
+      background: #343a40; /* Dark theme background */
+      border-color: #495057; /* Dark theme border */
+      color: #f8f9fa; /* Light text */
+    }
+
+    .card-back img {
+      max-width: 40px; /* FIXED: Smaller image size */
+      max-height: 40px; /* FIXED: Smaller image size */
+      margin-bottom: 5px; /* Space below image */
+    }
+
+    .card-back div {
+      font-size: 0.7rem; /* FIXED: Smaller text */
+      font-weight: 600; /* Semi-bold */
+      text-align: center; /* Centered text */
+    }
+
+    /* Right Sidebar - Fun Facts */
+    .fun-facts {
+      grid-column: 3; /* Places in third column */
+      grid-row: 2; /* FIXED: Places in second row */
+      background: rgba(255, 255, 255, 0.9); /* Semi-transparent background */
+      border-radius: 12px; /* Rounded corners */
+      padding: 15px; /* FIXED: Reduced padding */
+      backdrop-filter: blur(10px); /* Glass effect */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+      overflow-y: auto; /* FIXED: Allows scrolling within sidebar if needed */
+      max-height: 100%; /* FIXED: Prevents overflow */
+    }
+
+    body.dark .fun-facts {
+      background: rgba(33, 37, 41, 0.9); /* Dark theme background */
+    }
+
+    .fun-facts h3 {
+      font-size: 1.1rem; /* FIXED: Smaller heading */
+      font-weight: 600; /* Semi-bold */
+      margin-bottom: 15px; /* Space below heading */
+      text-align: center; /* Centered heading */
+      color: #495057; /* Dark text */
+    }
+
+    body.dark .fun-facts h3 {
+      color: #f8f9fa; /* Light text for dark theme */
+    }
+
+    #funFact {
+      font-size: 0.9rem; /* FIXED: Smaller text */
+      line-height: 1.4; /* FIXED: Tighter line height */
+      padding: 12px; /* FIXED: Reduced padding */
+      background: rgba(108, 117, 125, 0.1); /* Light background */
+      border-radius: 8px; /* Rounded corners */
+      border-left: 4px solid #6c757d; /* Left accent border */
+    }
+
+    /* Celebration Modal */
+    #celebration {
+      position: fixed; /* Fixed positioning relative to viewport */
+      top: 0; /* Covers entire screen */
+      left: 0; /* Covers entire screen */
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      background: rgba(0, 0, 0, 0.8); /* Semi-transparent overlay */
+      display: flex; /* Centers modal content */
+      align-items: center; /* Vertical centering */
+      justify-content: center; /* Horizontal centering */
+      z-index: 1000; /* Ensures modal appears above everything */
+    }
+
+    .celebration-content {
+      background: #fff; /* White background */
+      padding: 40px; /* Internal spacing */
+      border-radius: 15px; /* Rounded corners */
+      text-align: center; /* Centered text */
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); /* Large shadow */
+      max-width: 400px; /* Maximum width */
+      width: 90%; /* Responsive width */
+    }
+
+    body.dark .celebration-content {
+      background: #343a40; /* Dark theme background */
+    }
+
+    .celebration-content h2 {
+      font-size: 2rem; /* Large heading */
+      margin-bottom: 20px; /* Space below heading */
+      color: #495057; /* Dark text */
+    }
+
+    body.dark .celebration-content h2 {
+      color: #f8f9fa; /* Light text for dark theme */
+    }
+
+    .hidden {
+      display: none !important; /* Completely hides element */
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .game-container {
+        grid-template-columns: 1fr; /* Single column on mobile */
+        grid-template-rows: auto auto auto auto; /* FIXED: 4 rows for mobile */
+        gap: 10px; /* FIXED: Smaller gap */
+        padding: 10px; /* FIXED: Less padding */
+      }
+      
+      .completed-matches {
+        grid-column: 1; /* Full width */
+        grid-row: 2; /* Second row */
+        max-height: 150px; /* FIXED: Limit height on mobile */
+      }
+      
+      .game-area {
+        grid-column: 1; /* Full width */
+        grid-row: 3; /* Third row */
+      }
+      
+      .fun-facts {
+        grid-column: 1; /* Full width */
+        grid-row: 4; /* Fourth row */
+        max-height: 150px; /* FIXED: Limit height on mobile */
+      }
+      
+      .game-board {
+        grid-template-columns: repeat(3, 1fr); /* 3 columns on mobile */
+        gap: 8px; /* FIXED: Smaller gap */
+        padding: 10px; /* FIXED: Less padding */
+      }
+      
+      .card {
+        width: 70px; /* FIXED: Smaller cards on mobile */
+        height: 70px; /* FIXED: Smaller cards on mobile */
+      }
+      
+      h1 {
+        font-size: 1.5rem; /* FIXED: Smaller heading on mobile */
+      }
+      
+      .stats {
+        font-size: 0.9rem; /* FIXED: Smaller stats text */
+        gap: 15px; /* FIXED: Less gap between stats */
+      }
+      
+      .controls {
+        gap: 8px; /* FIXED: Smaller gap between controls */
+      }
+      
+      button, select {
+        padding: 6px 10px; /* FIXED: Smaller buttons */
+        font-size: 0.8rem; /* FIXED: Smaller button text */
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Hello World</h1>
+  <!-- Main container that holds all game elements -->
+  <div class="game-container">
+    <!-- Header section containing title, controls, and stats -->
+    <header>
+      <h1>🎬 Digital Media Memory Game</h1>
+      <!-- Control buttons for game functionality -->
+      <div class="controls">
+        <button id="resetBtn">↻ Reset</button> <!-- Resets the entire game -->
+        <button id="hintBtn">💡 Hint</button> <!-- Shows all cards briefly -->
+        <label for="themeSelect">
+          <select id="themeSelect"> <!-- Theme switcher dropdown -->
+            <option value="light">☀ Light</option>
+            <option value="dark">🌙 Dark</option>
+          </select>
+        </label>
+      </div>
+      <!-- Game statistics display -->
+      <div class="stats">
+        <span>⏱️ Time: <span id="timer">00:00</span></span> <!-- Elapsed time counter -->
+        <span>🎯 Moves: <span id="moves">0</span></span> <!-- Move counter -->
+      </div>
+    </header>
+
+    <!-- Left sidebar showing completed matches -->
+    <div class="completed-matches">
+      <h3>✅ Completed Matches</h3>
+      <div id="completedList"></div> <!-- Dynamic list of matched pairs -->
+    </div>
+
+    <!-- Main game area containing the card grid -->
+    <div class="game-area">
+      <div class="game-board" id="gameBoard"></div> <!-- Cards are dynamically added here -->
+    </div>
+
+    <!-- Right sidebar showing fun facts -->
+    <div class="fun-facts">
+      <h3>💡 Fun Facts</h3>
+      <div id="funFact" class="hidden">Click on matching cards to learn interesting facts!</div>
+    </div>
+  </div>
+
+  <!-- Modal that appears when game is completed -->
+  <div id="celebration" class="hidden">
+    <div class="celebration-content">
+      <h2>🎉 Congratulations! 🎉</h2>
+      <p>You completed the game!</p>
+      <p><strong>Time:</strong> <span id="finalTime"></span></p>
+      <p><strong>Moves:</strong> <span id="finalMoves"></span></p>
+      <button id="playAgainBtn">🔄 Play Again</button>
+    </div>
+  </div>
+
+  <script>
+    // Array containing all card data with names, facts, and emoji icons
+    const cardsData = [
+      { name: 'Camera', fact: 'Different cameras have varying sensor sizes that affect image quality and depth of field.', img: '📷' },
+      { name: 'Laptop', fact: 'High-performance laptops with dedicated GPUs are essential for smooth video editing workflows.', img: '💻' },
+      { name: 'Tripod', fact: 'Tripods not only stabilize shots but also enable consistent framing for professional results.', img: '🎥' },
+      { name: 'Microphone', fact: 'Directional microphones can isolate specific sound sources while reducing background noise.', img: '🎤' },
+      { name: 'Lighting Kit', fact: 'Professional lighting setups use the three-point lighting technique for optimal subject illumination.', img: '💡' },
+      { name: 'Drone', fact: 'Modern drones can capture 4K footage and offer intelligent flight modes for cinematic shots.', img: '🚁' },
+      { name: 'Gimbal', fact: 'Electronic gimbals use gyroscopes and motors to counteract camera shake in real-time.', img: '🎬' },
+      { name: 'Green Screen', fact: 'Chroma key technology allows for seamless background replacement in post-production.', img: '🟢' },
+      { name: 'Memory Card', fact: 'High-speed memory cards with fast write speeds prevent dropped frames during recording.', img: '💾' },
+      { name: 'Editing Software', fact: 'Modern editing software uses GPU acceleration to handle multiple 4K video streams simultaneously.', img: '✂️' },
+      { name: 'External Monitor', fact: 'Color-calibrated external monitors ensure accurate color representation during filming.', img: '🖥️' },
+      { name: 'Clapperboard', fact: 'Digital clapperboards can sync with cameras and automatically log scene information.', img: '🎞️' }
+    ];
+
+    // Global game state variables
+    let cards = []; // Array holding the current shuffled cards
+    let flipped = []; // Array tracking currently flipped cards (max 2)
+    let matched = 0; // Counter for total matched cards
+    let moves = 0; // Counter for total moves made
+    let time = 0; // Time elapsed in seconds
+    let timer; // Reference to the timer interval
+    let gameStarted = false; // Flag to track if game has begun
+    let completedMatches = []; // Array of completed matches to avoid duplicates
+
+    // DOM element references for efficient access
+    const board = document.getElementById('gameBoard'); // Main game board container
+    const resetBtn = document.getElementById('resetBtn'); // Reset button
+    const hintBtn = document.getElementById('hintBtn'); // Hint button
+    const playAgainBtn = document.getElementById('playAgainBtn'); // Play again button in modal
+    const timerEl = document.getElementById('timer'); // Timer display element
+    const movesEl = document.getElementById('moves'); // Moves counter display
+    const funFactEl = document.getElementById('funFact'); // Fun fact display area
+    const celebration = document.getElementById('celebration'); // Victory modal
+    const finalTime = document.getElementById('finalTime'); // Final time in modal
+    const finalMoves = document.getElementById('finalMoves'); // Final moves in modal
+    const themeSelect = document.getElementById('themeSelect'); // Theme selector dropdown
+    const completedList = document.getElementById('completedList'); // Completed matches list
+
+    // Fisher-Yates shuffle algorithm to randomize card order
+    function shuffle(array) {
+      const doubled = [...array, ...array]; // Creates pairs by duplicating array
+      for (let i = doubled.length - 1; i > 0; i--) { // Iterate backwards through array
+        const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
+        [doubled[i], doubled[j]] = [doubled[j], doubled[i]]; // Swap elements
+      }
+      return doubled; // Return shuffled array with pairs
+    }
+
+    // Starts the game timer and updates display every second
+    function startTimer() {
+      if (timer) clearInterval(timer); // Clear existing timer if any
+      timer = setInterval(() => { // Create new interval
+        time++; // Increment time counter
+        const min = String(Math.floor(time / 60)).padStart(2, '0'); // Calculate minutes with leading zero
+        const sec = String(time % 60).padStart(2, '0'); // Calculate seconds with leading zero
+        timerEl.textContent = `${min}:${sec}`; // Update display
+      }, 1000); // Run every 1000ms (1 second)
+    }
+
+    // Stops the game timer
+    function stopTimer() {
+      if (timer) { // Check if timer exists
+        clearInterval(timer); // Stop the interval
+        timer = null; // Reset timer reference
+      }
+    }
+
+    // Creates a card element with flip animation and click handler
+    function createCard(card, index) {
+      const cardElement = document.createElement('div'); // Create card container
+      cardElement.classList.add('card'); // Add card styling class
+      cardElement.dataset.index = index; // Store array index for identification
+      cardElement.innerHTML = ` 
+        <div class="card-inner"> <!-- Inner container for flip effect -->
+          <div class="card-front"></div> <!-- Front side (question mark) -->
+          <div class="card-back"> <!-- Back side (content) -->
+            <div style="font-size: 2rem; margin-bottom: 5px;">${card.img}</div> <!-- Emoji icon -->
+            <div>${card.name}</div> <!-- Card name -->
+          </div>
+        </div>
+      `;
+      cardElement.addEventListener('click', handleCardClick); // Add click event listener
+      return cardElement; // Return completed card element
+    }
+
+    // Adds a completed match to the sidebar list
+    function updateCompletedMatches(card) {
+      if (!completedMatches.find(match => match.name === card.name)) { // Check for duplicates
+        completedMatches.push(card); // Add to completed array
+        const matchItem = document.createElement('div'); // Create list item
+        matchItem.classList.add('match-item'); // Add styling class
+        matchItem.innerHTML = `
+          <div class="match-item-icon">${card.img}</div> <!-- Match icon -->
+          <span>${card.name}</span> <!-- Match name -->
+        `;
+        completedList.appendChild(matchItem); // Add to DOM
+      }
+    }
+
+    // Resets all game state and regenerates the board
+    function resetGame() {
+      cards = shuffle(cardsData); // Shuffle cards for new game
+      board.innerHTML = ''; // Clear game board
+      completedList.innerHTML = ''; // Clear completed matches list
+      flipped = []; // Reset flipped cards array
+      matched = 0; // Reset match counter
+      moves = 0; // Reset move counter
+      time = 0; // Reset time
+      gameStarted = false; // Reset game started flag
+      completedMatches = []; // Reset completed matches array
+      movesEl.textContent = '0'; // Reset moves display
+      timerEl.textContent = '00:00'; // Reset timer display
+      funFactEl.textContent = 'Click on matching cards to learn interesting facts!'; // Reset fact display
+      funFactEl.classList.add('hidden'); // Hide fact display
+      celebration.classList.add('hidden'); // Hide victory modal
+      stopTimer(); // Stop any running timer
+
+      // Create and add all cards to the board
+      cards.forEach((card, idx) => {
+        board.appendChild(createCard(card, idx)); // Add each card to board
+      });
+    }
+
+    // Handles card click events and game logic
+    function handleCardClick(e) {
+      const card = e.currentTarget; // Get clicked card element
+      
+      // Prevent invalid clicks: already flipped cards or when 2 cards are flipped
+      if (card.classList.contains('flipped') || flipped.length === 2) return;
+      
+      // Start timer on first move
+      if (!gameStarted) {
+        gameStarted = true; // Set game started flag
+        startTimer(); // Begin timing
+      }
+      
+      const index = parseInt(card.dataset.index); // Get card's array index
+      card.classList.add('flipped'); // Add flip animation class
+      flipped.push({ index, element: card }); // Add to flipped cards array
+
+      // Check for match when two cards are flipped
+      if (flipped.length === 2) {
+        moves++; // Increment move counter
+        movesEl.textContent = moves; // Update moves display
+        
+        const [first, second] = flipped; // Destructure flipped cards
+        
+        // Check if cards match by comparing names
+        if (cards[first.index].name === cards[second.index].name) {
+          // Match found - handle successful match
+          setTimeout(() => {
+            first.element.classList.add('matched'); // Mark first card as matched
+            second.element.classList.add('matched'); // Mark second card as matched
+            matched += 2; // Increment matched counter by 2
+            
+            // Update UI with match information
+            updateCompletedMatches(cards[first.index]); // Add to completed list
+            funFactEl.textContent = cards[first.index].fact; // Show fact
+            funFactEl.classList.remove('hidden'); // Make fact visible
+            
+            flipped = []; // Clear flipped cards array
+            
+            // Check if all cards are matched (game complete)
+            if (matched === cards.length) {
+              stopTimer(); // Stop the timer
+              finalTime.textContent = timerEl.textContent; // Set final time in modal
+              finalMoves.textContent = moves; // Set final moves in modal
+              setTimeout(() => {
+                celebration.classList.remove('hidden'); // Show victory modal after delay
+              }, 500);
+            }
+          }, 500); // Delay for visual feedback
+        } else {
+          // No match - flip cards back after delay
+          setTimeout(() => {
+            first.element.classList.remove('flipped'); // Remove flip class from first card
+            second.element.classList.remove('flipped'); // Remove flip class from second card
+            flipped = []; // Clear flipped cards array
+          }, 1000); // 1 second delay to let player see the cards
+        }
+      }
+    }
+
+    // Event listeners for user interactions
+    resetBtn.addEventListener('click', resetGame); // Reset button starts new game
+    playAgainBtn.addEventListener('click', resetGame); // Play again button starts new game
+
+    // Hint button temporarily shows all unmatched cards
+    hintBtn.addEventListener('click', () => {
+      const unflippedCards = document.querySelectorAll('.card:not(.flipped):not(.matched)'); // Get all face-down cards
+      unflippedCards.forEach(card => card.classList.add('flipped')); // Flip all unmatched cards
+      
+      setTimeout(() => { // After 2 seconds, flip them back
+        unflippedCards.forEach(card => {
+          if (!card.classList.contains('matched')) { // Only flip back if not matched
+            card.classList.remove('flipped'); // Remove flip class
+          }
+        });
+      }, 2000); // 2 second hint duration
+    });
+
+    // Theme selector changes between light and dark modes
+    themeSelect.addEventListener('change', (e) => {
+      document.body.classList.toggle('dark', e.target.value === 'dark'); // Toggle dark class based on selection
+    });
+
+    // Close celebration modal when clicking outside the content area
+    celebration.addEventListener('click', (e) => {
+      if (e.target === celebration) { // Check if click was on the overlay, not the modal content
+        celebration.classList.add('hidden'); // Hide the modal
+      }
+    });
+
+    // Initialize game when page loads
+    window.addEventListener('DOMContentLoaded', resetGame); // Start new game when DOM is ready
+  </script>
 </body>
 </html>
