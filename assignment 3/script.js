@@ -1,217 +1,342 @@
-// Array containing all card data with names, facts, and emoji icons
-    const cardsData = [
-      { name: 'Camera', fact: 'Different cameras have varying sensor sizes that affect image quality and depth of field.', img: '📷' },
-      { name: 'Laptop', fact: 'High-performance laptops with dedicated GPUs are essential for smooth video editing workflows.', img: '💻' },
-      { name: 'Tripod', fact: 'Tripods not only stabilize shots but also enable consistent framing for professional results.', img: '🎥' },
-      { name: 'Microphone', fact: 'Directional microphones can isolate specific sound sources while reducing background noise.', img: '🎤' },
-      { name: 'Lighting Kit', fact: 'Professional lighting setups use the three-point lighting technique for optimal subject illumination.', img: '💡' },
-      { name: 'Drone', fact: 'Modern drones can capture 4K footage and offer intelligent flight modes for cinematic shots.', img: '🚁' },
-      { name: 'Gimbal', fact: 'Electronic gimbals use gyroscopes and motors to counteract camera shake in real-time.', img: '🎬' },
-      { name: 'Green Screen', fact: 'Chroma key technology allows for seamless background replacement in post-production.', img: '🟢' },
-      { name: 'Memory Card', fact: 'High-speed memory cards with fast write speeds prevent dropped frames during recording.', img: '💾' },
-      { name: 'Editing Software', fact: 'Modern editing software uses GPU acceleration to handle multiple 4K video streams simultaneously.', img: '✂️' },
-      { name: 'External Monitor', fact: 'Color-calibrated external monitors ensure accurate color representation during filming.', img: '🖥️' },
-      { name: 'Clapperboard', fact: 'Digital clapperboards can sync with cameras and automatically log scene information.', img: '🎞️' }
-    ];
+// all the cards with their info
+const cardsData = [
+    { name: 'Camera', fact: 'Different cameras have varying sensor sizes that affect image quality and depth of field.', img: '📷' },
+    { name: 'Laptop', fact: 'High-performance laptops with dedicated GPUs are essential for smooth video editing workflows.', img: '💻' },
+    { name: 'Tripod', fact: 'Tripods not only stabilize shots but also enable consistent framing for professional results.', img: '🎥' },
+    { name: 'Microphone', fact: 'Directional microphones can isolate specific sound sources while reducing background noise.', img: '🎤' },
+    { name: 'Lighting Kit', fact: 'Professional lighting setups use the three-point lighting technique for optimal subject illumination.', img: '💡' },
+    { name: 'Drone', fact: 'Modern drones can capture 4K footage and offer intelligent flight modes for cinematic shots.', img: '🚁' },
+    { name: 'Gimbal', fact: 'Electronic gimbals use gyroscopes and motors to counteract camera shake in real-time.', img: '🎬' },
+    { name: 'Green Screen', fact: 'Chroma key technology allows for seamless background replacement in post-production.', img: '🟢' },
+    { name: 'Memory Card', fact: 'High-speed memory cards with fast write speeds prevent dropped frames during recording.', img: '💾' },
+    { name: 'Editing Software', fact: 'Modern editing software uses GPU acceleration to handle multiple 4K video streams simultaneously.', img: '✂️' },
+    { name: 'External Monitor', fact: 'Color-calibrated external monitors ensure accurate color representation during filming.', img: '🖥️' },
+    { name: 'Clapperboard', fact: 'Digital clapperboards can sync with cameras and automatically log scene information.', img: '🎞️' }
+];
 
-    // Global game state variables
-    let cards = []; // Array holding the current shuffled cards
-    let flipped = []; // Array tracking currently flipped cards (max 2)
-    let matched = 0; // Counter for total matched cards
-    let moves = 0; // Counter for total moves made
-    let time = 0; // Time elapsed in seconds
-    let timer; // Reference to the timer interval
-    let gameStarted = false; // Flag to track if game has begun
-    let completedMatches = []; // Array of completed matches to avoid duplicates
+// variables for the game
+let cards = [];
+let flipped = [];
+let matched = 0;
+let moves = 0;
+let time = 0;
+let timer;
+let gameStarted = false;
 
-    // DOM element references for efficient access
-    const board = document.getElementById('gameBoard'); // Main game board container
-    const resetBtn = document.getElementById('resetBtn'); // Reset button
-    const hintBtn = document.getElementById('hintBtn'); // Hint button
-    const playAgainBtn = document.getElementById('playAgainBtn'); // Play again button in modal
-    const timerEl = document.getElementById('timer'); // Timer display element
-    const movesEl = document.getElementById('moves'); // Moves counter display
-    const funFactEl = document.getElementById('funFact'); // Fun fact display area
-    const celebration = document.getElementById('celebration'); // Victory modal
-    const finalTime = document.getElementById('finalTime'); // Final time in modal
-    const finalMoves = document.getElementById('finalMoves'); // Final moves in modal
-    const themeSelect = document.getElementById('themeSelect'); // Theme selector dropdown
-    const completedList = document.getElementById('completedList'); // Completed matches list
+// get all the elements from html
+const board = document.getElementById('gameBoard');
+const resetBtn = document.getElementById('resetBtn');
+const hintBtn = document.getElementById('hintBtn');
+const playAgainBtn = document.getElementById('playAgainBtn');
+const timerEl = document.getElementById('timer');
+const movesEl = document.getElementById('moves');
+const funFactEl = document.getElementById('funFact');
+const celebration = document.getElementById('celebration');
 
-    // Fisher-Yates shuffle algorithm to randomize card order
-    function shuffle(array) {
-      const doubled = [...array, ...array]; // Creates pairs by duplicating array
-      for (let i = doubled.length - 1; i > 0; i--) { // Iterate backwards through array
-        const j = Math.floor(Math.random() * (i + 1)); // Random index from 0 to i
-        [doubled[i], doubled[j]] = [doubled[j], doubled[i]]; // Swap elements
-      }
-      return doubled; // Return shuffled array with pairs
+// more elements
+const finalTime = document.getElementById('finalTime');
+const finalMoves = document.getElementById('finalMoves');
+const themeSelect = document.getElementById('themeSelect');
+const completedList = document.getElementById('completedList');
+
+let completedMatches = []; // track completed matches
+
+// function to shuffle the cards
+function shuffle(array) {
+    // first make pairs by copying the array
+    const doubled = [...array, ...array];
+    
+    // then shuffle using random
+    for (let i = doubled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        // swap the elements
+        const temp = doubled[i];
+        doubled[i] = doubled[j];
+        doubled[j] = temp;
     }
+    return doubled;
+}
 
-    // Starts the game timer and updates display every second
-    function startTimer() {
-      if (timer) clearInterval(timer); // Clear existing timer if any
-      timer = setInterval(() => { // Create new interval
-        time++; // Increment time counter
-        const min = String(Math.floor(time / 60)).padStart(2, '0'); // Calculate minutes with leading zero
-        const sec = String(time % 60).padStart(2, '0'); // Calculate seconds with leading zero
-        timerEl.textContent = `${min}:${sec}`; // Update display
-      }, 1000); // Run every 1000ms (1 second)
+// timer function
+function startTimer() {
+    // clear any existing timer first
+    if (timer) {
+        clearInterval(timer);
     }
-
-    // Stops the game timer
-    function stopTimer() {
-      if (timer) { // Check if timer exists
-        clearInterval(timer); // Stop the interval
-        timer = null; // Reset timer reference
-      }
-    }
-
-    // Creates a card element with flip animation and click handler
-    function createCard(card, index) {
-      const cardElement = document.createElement('div'); // Create card container
-      cardElement.classList.add('card'); // Add card styling class
-      cardElement.dataset.index = index; // Store array index for identification
-      cardElement.innerHTML = ` 
-        <div class="card-inner"> <!-- Inner container for flip effect -->
-          <div class="card-front"></div> <!-- Front side (question mark) -->
-          <div class="card-back"> <!-- Back side (content) -->
-            <div style="font-size: 2rem; margin-bottom: 5px;">${card.img}</div> <!-- Emoji icon -->
-            <div>${card.name}</div> <!-- Card name -->
-          </div>
-        </div>
-      `;
-      cardElement.addEventListener('click', handleCardClick); // Add click event listener
-      return cardElement; // Return completed card element
-    }
-
-    // Adds a completed match to the sidebar list
-    function updateCompletedMatches(card) {
-      if (!completedMatches.find(match => match.name === card.name)) { // Check for duplicates
-        completedMatches.push(card); // Add to completed array
-        const matchItem = document.createElement('div'); // Create list item
-        matchItem.classList.add('match-item'); // Add styling class
-        matchItem.innerHTML = `
-          <div class="match-item-icon">${card.img}</div> <!-- Match icon -->
-          <span>${card.name}</span> <!-- Match name -->
-        `;
-        completedList.appendChild(matchItem); // Add to DOM
-      }
-    }
-
-    // Resets all game state and regenerates the board
-    function resetGame() {
-      cards = shuffle(cardsData); // Shuffle cards for new game
-      board.innerHTML = ''; // Clear game board
-      completedList.innerHTML = ''; // Clear completed matches list
-      flipped = []; // Reset flipped cards array
-      matched = 0; // Reset match counter
-      moves = 0; // Reset move counter
-      time = 0; // Reset time
-      gameStarted = false; // Reset game started flag
-      completedMatches = []; // Reset completed matches array
-      movesEl.textContent = '0'; // Reset moves display
-      timerEl.textContent = '00:00'; // Reset timer display
-      funFactEl.textContent = 'Click on matching cards to learn interesting facts!'; // Reset fact display
-      funFactEl.classList.add('hidden'); // Hide fact display
-      celebration.classList.add('hidden'); // Hide victory modal
-      stopTimer(); // Stop any running timer
-
-      // Create and add all cards to the board
-      cards.forEach((card, idx) => {
-        board.appendChild(createCard(card, idx)); // Add each card to board
-      });
-    }
-
-    // Handles card click events and game logic
-    function handleCardClick(e) {
-      const card = e.currentTarget; // Get clicked card element
-      
-      // Prevent invalid clicks: already flipped cards or when 2 cards are flipped
-      if (card.classList.contains('flipped') || flipped.length === 2) return;
-      
-      // Start timer on first move
-      if (!gameStarted) {
-        gameStarted = true; // Set game started flag
-        startTimer(); // Begin timing
-      }
-      
-      const index = parseInt(card.dataset.index); // Get card's array index
-      card.classList.add('flipped'); // Add flip animation class
-      flipped.push({ index, element: card }); // Add to flipped cards array
-
-      // Check for match when two cards are flipped
-      if (flipped.length === 2) {
-        moves++; // Increment move counter
-        movesEl.textContent = moves; // Update moves display
+    
+    // start new timer
+    timer = setInterval(function() {
+        time = time + 1; // increment time
         
-        const [first, second] = flipped; // Destructure flipped cards
+        // calculate minutes and seconds
+        let minutes = Math.floor(time / 60);
+        let seconds = time % 60;
         
-        // Check if cards match by comparing names
-        if (cards[first.index].name === cards[second.index].name) {
-          // Match found - handle successful match
-          setTimeout(() => {
-            first.element.classList.add('matched'); // Mark first card as matched
-            second.element.classList.add('matched'); // Mark second card as matched
-            matched += 2; // Increment matched counter by 2
-            
-            // Update UI with match information
-            updateCompletedMatches(cards[first.index]); // Add to completed list
-            funFactEl.textContent = cards[first.index].fact; // Show fact
-            funFactEl.classList.remove('hidden'); // Make fact visible
-            
-            flipped = []; // Clear flipped cards array
-            
-            // Check if all cards are matched (game complete)
-            if (matched === cards.length) {
-              stopTimer(); // Stop the timer
-              finalTime.textContent = timerEl.textContent; // Set final time in modal
-              finalMoves.textContent = moves; // Set final moves in modal
-              setTimeout(() => {
-                celebration.classList.remove('hidden'); // Show victory modal after delay
-              }, 500);
-            }
-          }, 500); // Delay for visual feedback
-        } else {
-          // No match - flip cards back after delay
-          setTimeout(() => {
-            first.element.classList.remove('flipped'); // Remove flip class from first card
-            second.element.classList.remove('flipped'); // Remove flip class from second card
-            flipped = []; // Clear flipped cards array
-          }, 1000); // 1 second delay to let player see the cards
+        // format with leading zeros
+        if (minutes < 10) {
+            minutes = '0' + minutes;
         }
-      }
+        if (seconds < 10) {
+            seconds = '0' + seconds;
+        }
+        
+        // update display
+        timerEl.textContent = minutes + ':' + seconds;
+    }, 1000);
+}
+
+function stopTimer() {
+    if (timer) {
+        clearInterval(timer);
+        timer = null;
     }
+}
 
-    // Event listeners for user interactions
-    resetBtn.addEventListener('click', resetGame); // Reset button starts new game
-    playAgainBtn.addEventListener('click', resetGame); // Play again button starts new game
+// create a single card element
+function createCard(card, index) {
+    const cardElement = document.createElement('div');
+    cardElement.classList.add('card');
+    cardElement.dataset.index = index;
+    
+    // create the card structure
+    const cardInner = document.createElement('div');
+    cardInner.classList.add('card-inner');
+    
+    const cardFront = document.createElement('div');
+    cardFront.classList.add('card-front');
+    
+    const cardBack = document.createElement('div');
+    cardBack.classList.add('card-back');
+    
+    // add emoji and name to back
+    const emoji = document.createElement('div');
+    emoji.style.fontSize = '2rem';
+    emoji.style.marginBottom = '5px';
+    emoji.textContent = card.img;
+    
+    const name = document.createElement('div');
+    name.textContent = card.name;
+    
+    cardBack.appendChild(emoji);
+    cardBack.appendChild(name);
+    
+    cardInner.appendChild(cardFront);
+    cardInner.appendChild(cardBack);
+    cardElement.appendChild(cardInner);
+    
+    // add click handler
+    cardElement.addEventListener('click', function(e) {
+        handleCardClick(e);
+    });
+    
+    return cardElement;
+}
 
-    // Hint button temporarily shows all unmatched cards
-    hintBtn.addEventListener('click', () => {
-      const unflippedCards = document.querySelectorAll('.card:not(.flipped):not(.matched)'); // Get all face-down cards
-      unflippedCards.forEach(card => card.classList.add('flipped')); // Flip all unmatched cards
-      
-      setTimeout(() => { // After 2 seconds, flip them back
-        unflippedCards.forEach(card => {
-          if (!card.classList.contains('matched')) { // Only flip back if not matched
-            card.classList.remove('flipped'); // Remove flip class
-          }
-        });
-      }, 2000); // 2 second hint duration
+function updateCompletedMatches(card) {
+    // check if already added
+    let alreadyExists = false;
+    for (let i = 0; i < completedMatches.length; i++) {
+        if (completedMatches[i].name === card.name) {
+            alreadyExists = true;
+            break;
+        }
+    }
+    
+    if (!alreadyExists) {
+        completedMatches.push(card);
+        
+        // create new match item
+        const matchItem = document.createElement('div');
+        matchItem.classList.add('match-item');
+        
+        const icon = document.createElement('div');
+        icon.classList.add('match-item-icon');
+        icon.textContent = card.img;
+        
+        const span = document.createElement('span');
+        span.textContent = card.name;
+        
+        matchItem.appendChild(icon);
+        matchItem.appendChild(span);
+        
+        completedList.appendChild(matchItem);
+    }
+}
+
+// reset everything and start new game
+function resetGame() {
+    // shuffle the cards
+    cards = shuffle(cardsData);
+    
+    // clear the board
+    board.innerHTML = '';
+    
+    // clear completed list
+    completedList.innerHTML = '';
+    
+    // reset all variables
+    flipped = [];
+    matched = 0;
+    moves = 0;
+    time = 0;
+    gameStarted = false;
+    completedMatches = [];
+    
+    // reset displays
+    movesEl.textContent = '0';
+    timerEl.textContent = '00:00';
+    funFactEl.textContent = 'Click on matching cards to learn interesting facts!';
+    funFactEl.classList.add('hidden');
+    celebration.classList.add('hidden');
+    
+    // stop timer if running
+    stopTimer();
+
+    // create all the cards and add them to board
+    for (let i = 0; i < cards.length; i++) {
+        const cardElement = createCard(cards[i], i);
+        board.appendChild(cardElement);
+    }
+}
+
+// handle when user clicks a card
+function handleCardClick(e) {
+    const card = e.currentTarget;
+    
+    // dont do anything if card already flipped or if 2 cards already flipped
+    if (card.classList.contains('flipped')) {
+        return;
+    }
+    if (flipped.length === 2) {
+        return;
+    }
+    
+    // start timer on first click
+    if (!gameStarted) {
+        gameStarted = true;
+        startTimer();
+    }
+    
+    // get card index
+    const index = parseInt(card.dataset.index);
+    
+    // flip the card
+    card.classList.add('flipped');
+    
+    // add to flipped array
+    flipped.push({ 
+        index: index, 
+        element: card 
     });
 
-    // Theme selector changes between light and dark modes
-    themeSelect.addEventListener('change', (e) => {
-      document.body.classList.toggle('dark', e.target.value === 'dark'); // Toggle dark class based on selection
-    });
+    // if we have 2 cards flipped, check for match
+    if (flipped.length === 2) {
+        moves = moves + 1; // increment moves
+        movesEl.textContent = moves;
+        
+        const firstCard = flipped[0];
+        const secondCard = flipped[1];
+        
+        // check if names match
+        if (cards[firstCard.index].name === cards[secondCard.index].name) {
+            // its a match!
+            setTimeout(function() {
+                firstCard.element.classList.add('matched');
+                secondCard.element.classList.add('matched');
+                matched = matched + 2;
+                
+                // update completed matches
+                updateCompletedMatches(cards[firstCard.index]);
+                
+                // show fun fact
+                funFactEl.textContent = cards[firstCard.index].fact;
+                funFactEl.classList.remove('hidden');
+                
+                // clear flipped array
+                flipped = [];
+                
+                // check if game complete
+                if (matched === cards.length) {
+                    // game finished!
+                    stopTimer();
+                    
+                    // set final stats
+                    finalTime.textContent = timerEl.textContent;
+                    finalMoves.textContent = moves;
+                    
+                    // show celebration modal after short delay
+                    setTimeout(function() {
+                        celebration.classList.remove('hidden');
+                    }, 500);
+                }
+            }, 500);
+        } else {
+            // not a match, flip cards back
+            setTimeout(function() {
+                firstCard.element.classList.remove('flipped');
+                secondCard.element.classList.remove('flipped');
+                flipped = [];
+            }, 1000);
+        }
+    }
+}
 
-    // Close celebration modal when clicking outside the content area
-    celebration.addEventListener('click', (e) => {
-      if (e.target === celebration) { // Check if click was on the overlay, not the modal content
-        celebration.classList.add('hidden'); // Hide the modal
-      }
-    });
+// reset button click
+resetBtn.addEventListener('click', function() {
+    resetGame();
+});
 
-    // Initialize game when page loads
-    window.addEventListener('DOMContentLoaded', resetGame); // Start new game when DOM is ready
+// play again button click
+playAgainBtn.addEventListener('click', function() {
+    resetGame();
+});
+
+// hint button - shows all cards briefly
+hintBtn.addEventListener('click', function() {
+    // find all unflipped cards
+    const allCards = document.querySelectorAll('.card');
+    const unflippedCards = [];
+    
+    for (let i = 0; i < allCards.length; i++) {
+        const card = allCards[i];
+        if (!card.classList.contains('flipped') && !card.classList.contains('matched')) {
+            unflippedCards.push(card);
+        }
+    }
+    
+    // flip them all
+    for (let i = 0; i < unflippedCards.length; i++) {
+        unflippedCards[i].classList.add('flipped');
+    }
+    
+    // flip them back after 2 seconds
+    setTimeout(function() {
+        for (let i = 0; i < unflippedCards.length; i++) {
+            const card = unflippedCards[i];
+            if (!card.classList.contains('matched')) {
+                card.classList.remove('flipped');
+            }
+        }
+    }, 2000);
+});
+
+// theme selector
+themeSelect.addEventListener('change', function(e) {
+    if (e.target.value === 'dark') {
+        document.body.classList.add('dark');
+    } else {
+        document.body.classList.remove('dark');
+    }
+});
+
+// close modal when clicking outside
+celebration.addEventListener('click', function(e) {
+    if (e.target === celebration) {
+        celebration.classList.add('hidden');
+    }
+});
+
+// start the game when page loads
+window.addEventListener('DOMContentLoaded', function() {
+    resetGame();
+});

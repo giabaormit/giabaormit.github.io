@@ -1,0 +1,338 @@
+/* Main Styles - Monochrome Theme */
+    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+      background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
+      color: #212529; 
+      transition: all 0.3s ease; 
+    } /* Base body styling with modern font stack, 
+      gradient background, and smooth transitions */
+
+    /* Dark theme styles - consolidated into single lines */
+    body.dark { 
+      background: linear-gradient(135deg, #212529 0%, #343a40 100%); 
+      color: #f8f9fa; 
+    } /* Dark mode background and text color */
+    
+    body.dark header { 
+      background: rgba(33, 37, 41, 0.8); 
+    } /* Dark mode header background with transparency */
+    
+      body.dark button, body.dark select { 
+      background: #343a40; 
+      color: #f8f9fa; 
+      border-color: #495057; 
+    } /* Dark mode button and select styling */
+   
+      body.dark button:hover { 
+      background: #495057; 
+    } /* Dark mode button hover state */
+    
+      body.dark .completed-matches { 
+      background: rgba(33, 37, 41, 0.9); 
+    } /* Dark mode completed matches panel background */
+    
+      body.dark .completed-matches h3 { 
+        color: #f8f9fa; 
+      } /* Dark mode completed matches heading color */
+    
+      body.dark .game-board { 
+        background: rgba(33, 37, 41, 0.9); 
+      } /* Dark mode game board background */
+    
+      body.dark .card-back { 
+        background: #343a40; 
+        border-color: #495057; 
+        color: #f8f9fa; 
+      } /* Dark mode card back styling */
+    
+      body.dark .fun-facts { 
+        background: rgba(33, 37, 41, 0.9); 
+      } /* Dark mode fun facts panel background */
+    
+      body.dark .fun-facts h3 { 
+        color: #f8f9fa; 
+      } /* Dark mode fun facts heading color */
+    
+      body.dark .celebration-content { 
+        background: #343a40; 
+      } /* Dark mode celebration modal background */
+    
+      body.dark .celebration-content h2 { 
+        color: #f8f9fa; 
+      } /* Dark mode celebration heading color */
+
+    .game-container { 
+      max-width: 1200px; 
+      margin: 0 auto; 
+      padding: 20px; 
+      display: grid; 
+      grid-template-columns: 1fr 3fr 1fr; 
+      gap: 20px; 
+      min-height: 100vh; 
+    } /* Main container with centered layout, 
+      CSS Grid with 3 columns (sidebar-main-sidebar), and full viewport height */
+
+    /* Header section styling */
+    header { 
+      grid-column: 1 / -1; 
+      text-align: center; 
+      margin-bottom: 20px; 
+      padding: 20px; 
+      background: rgba(255, 255, 255, 0.8); 
+      border-radius: 12px; 
+      backdrop-filter: blur(10px); 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    } /* Header spans all columns, centered text, glass morphism effect with backdrop blur */
+
+    h1 { 
+      font-size: 2.5rem; 
+      font-weight: 700; 
+      margin-bottom: 20px; 
+      background: linear-gradient(45deg, #495057, #6c757d); 
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent; 
+      background-clip: text; 
+    } /* Large heading with gradient text effect using CSS background clipping */
+
+    .controls { 
+      display: flex; 
+      justify-content: center; 
+      flex-wrap: wrap; 
+      gap: 15px; 
+      margin: 20px 0; 
+    } /* Flexbox container for control buttons with centered alignment and wrapping */
+
+    button, select { 
+      padding: 12px 18px; 
+      font-size: 1rem; 
+      font-weight: 500; 
+      border-radius: 8px; 
+      border: 2px solid #6c757d; 
+      background: #fff; 
+      color: #495057; 
+      cursor: pointer; 
+      transition: all 0.3s ease; 
+      display: flex; 
+      align-items: center; 
+      gap: 8px; 
+    } /* Button and select styling with consistent padding, borders, and smooth transitions */
+
+    button:hover { 
+      background: #6c757d; 
+      color: #fff; 
+      transform: translateY(-2px); 
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    } /* Button hover effect with color change, lift animation, and shadow */
+
+    .stats { 
+      display: flex; 
+      justify-content: center; 
+      gap: 30px; 
+      font-size: 1.2rem;
+      font-weight: 600; 
+      margin-top: 15px; 
+    } /* Statistics display with flexbox layout and larger font */
+
+    /* Left Sidebar - Completed Matches */
+    .completed-matches { 
+      background: rgba(255, 255, 255, 0.9); 
+      border-radius: 12px; 
+      padding: 20px; 
+      height: fit-content; 
+      backdrop-filter: blur(10px); 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    } /* Sidebar panel with glass morphism effect and content-based height */
+
+    .completed-matches h3 { 
+      font-size: 1.2rem; 
+      font-weight: 600; 
+      margin-bottom: 15px; 
+      text-align: center; 
+      color: #495057; 
+    } /* Sidebar heading styling */
+
+    .match-item { 
+      display: flex; 
+      align-items: center; 
+      gap: 10px; 
+      padding: 10px; 
+      margin-bottom: 8px; 
+      background: rgba(108, 117, 125, 0.1); 
+      border-radius: 8px; 
+      font-size: 0.9rem; 
+    } /* Individual match item with flexbox layout and subtle background */
+
+    .match-item-icon { 
+      width: 30px; 
+      height: 30px; 
+      background: #6c757d; 
+      border-radius: 4px; 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      color: white; 
+      font-size: 0.8rem; 
+    } /* Icon container for matched items with centered content */
+
+    /* Game Board - Changed from 4x6 to 6x4 layout */
+    .game-area { 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+    } /* Container for game board with centered alignment */
+
+    .game-board { 
+      display: grid; 
+      grid-template-columns: repeat(6, 1fr); 
+      gap: 15px; 
+      margin: 20px 0; 
+      padding: 20px; 
+      background: rgba(255, 255, 255, 0.9); 
+      border-radius: 12px; 
+      backdrop-filter: blur(10px); 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    } /* CHANGED: Game board now uses 6 columns instead of 4 for 6x4 layout, CSS Grid with equal column widths */
+
+    .card { 
+      position: relative; 
+      width: 100px; 
+      height: 100px; 
+      perspective: 1000px; 
+      cursor: pointer; 
+    } /* Individual card container with 3D perspective for flip animation */
+
+    .card-inner { 
+      position: absolute; 
+      width: 100%; 
+      height: 100%; 
+      transition: transform 0.6s ease; 
+      transform-style: preserve-3d; 
+    } /* Inner card container that handles the 3D flip transformation */
+
+    .card.flipped .card-inner { 
+      transform: rotateY(180deg); 
+    } /* When card has 'flipped' class, rotate the inner container 180 degrees on Y-axis */
+
+    .card-front, .card-back { 
+      position: absolute; 
+      width: 100%; 
+      height: 100%; 
+      border-radius: 10px; 
+      backface-visibility: hidden; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+    } /* Both sides of the card with hidden backface for 3D flip effect */
+
+    .card-front { 
+      background: linear-gradient(135deg, #adb5bd, #6c757d); 
+      border: 2px solid #495057; 
+    } /* Front (hidden) side of card with gradient background */
+
+    .card-front::after { 
+      content: "?"; 
+      font-size: 2rem; 
+      font-weight: bold; 
+      color: #fff; 
+    } /* CSS pseudo-element to add question mark to card front */
+
+    .card-back { 
+      transform: rotateY(180deg); 
+      background: #fff; 
+      border: 2px solid #dee2e6; 
+      color: #495057; 
+    } /* Back (revealed) side of card, pre-rotated 180 degrees */
+
+    .card-back img { 
+      max-width: 50px; 
+      max-height: 50px; 
+      margin-bottom: 5px; 
+    } /* Image styling on card back */
+
+    .card-back div { 
+      font-size: 0.8rem; 
+      font-weight: 600; 
+      text-align: center; 
+    } /* Text styling on card back */
+
+    /* Right Sidebar - Fun Facts */
+    .fun-facts { 
+      background: rgba(255, 255, 255, 0.9); 
+      border-radius: 12px; 
+      padding: 20px; 
+      height: fit-content; 
+      backdrop-filter: blur(10px); 
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
+    } /* Right sidebar panel with glass morphism effect */
+
+    .fun-facts h3 { 
+      font-size: 1.2rem; 
+      font-weight: 600; 
+      margin-bottom: 15px; 
+      text-align: center; 
+      color: #495057; 
+    } /* Fun facts heading styling */
+
+    #funFact { 
+      font-size: 1rem; 
+      line-height: 1.5; 
+      padding: 15px; 
+      background: rgba(108, 117, 125, 0.1); 
+      border-radius: 8px; 
+      border-left: 4px solid #6c757d; 
+    } /* Fun fact display area with left border accent */
+
+    /* Celebration Modal */
+    #celebration { 
+      position: fixed; 
+      top: 0; 
+      left: 0; 
+      width: 100%; 
+      height: 100%; 
+      background: rgba(0, 0, 0, 0.8); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      z-index: 1000; 
+    } /* Full-screen modal overlay with high z-index */
+
+    .celebration-content { background: #fff; 
+      padding: 40px; 
+      border-radius: 15px; 
+      text-align: center; 
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); 
+      max-width: 400px; 
+      width: 90%; 
+    } /* Modal content box with shadow and responsive width */
+
+    .celebration-content h2 { 
+      font-size: 2rem; 
+      margin-bottom: 20px; 
+      color: #495057; 
+    } /* Celebration heading styling */
+
+    .hidden { 
+      display: none !important; } /* Utility class to hide elements completely */
+
+    /* Responsive Design for mobile devices */
+    @media (max-width: 768px) {
+      .game-container { 
+        grid-template-columns: 1fr; 
+        gap: 15px; 
+      } 
+      /* Stack layout vertically on mobile */
+      .game-board { 
+        grid-template-columns: repeat(3, 1fr); 
+      } 
+      /* Reduce to 3 columns on mobile for better fit */
+      .card { 
+        width: 80px; 
+        height: 80px; 
+      } 
+      /* Smaller cards on mobile */
+      h1 { 
+        font-size: 2rem; 
+      } 
+      /* Smaller heading on mobile */
+    }
