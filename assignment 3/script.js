@@ -182,8 +182,8 @@ function resetGame() {
     // reset displays
     movesEl.textContent = '0';
     timerEl.textContent = '00:00';
-    funFactEl.textContent = 'Click on matching cards to learn interesting facts!';
-    funFactEl.classList.add('hidden');
+    funFactEl.textContent = 'Click on matching cards to learn interesting facts';
+funFactEl.classList.remove('hidden'); // make this visible at the start of the game
     celebration.classList.add('hidden');
     
     // stop timer if running
@@ -317,7 +317,7 @@ hintBtn.addEventListener('click', function() {
     }, 2000);
 });
 
-// theme selector
+// theme selector 
 themeSelect.addEventListener('change', function(e) {
     if (e.target.value === 'dark') {
         document.body.classList.add('dark');

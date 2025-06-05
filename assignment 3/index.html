@@ -1,3 +1,27 @@
+<!-- 
+ I designed this memory game as an educational and engaging experience that revolves around film production
+objects with interactive informative content. Inspired by Match the Memory, Memozor, and Memory Matching
+I want to improve the core concept with more features and redefine the style. By adding additional fun 
+facts when you successfully match the cards, it turns this game from a normal visual memory game to a 
+learning opportunity to explore more about the world of filmmaking equipment and techniques. Minimalistic
+was chosen to focus on usability, visual clarity, and responsive UI/UX.  Moreover, I also added the time counter, 
+move counter, reset button, hint button, light/dark mode drop-down menu selector, and a final celebration
+ending scene to enhance the user experience and add a nice touch when you finish the game. The inclusion of
+time and move counts forces people in a hurry to make the ending more rewarding. The reset and hint button are
+added to make the game easier and provide extra help.  Light and dark themes are added with good contrast ratios to 
+maintain readability and reduce eye strain in different environments. I reckon the game can be updated due to the 
+fact that it is built on normal javascript with simple code with mostly text. The completed matches list also adds 
+another layer of progression and balances the design of the website to make the learning and engagement more 
+interesting. The layout is created in a harmonious way to fit the purpose of using both laptops and phones.
+The potential update for the website could potentially be adding audio response feedback, expanding additional filmmaking concept, or making different game modes like: easy, hard, and medium with 
+different layouts of the board. Overall, this project demonstrates how a simple memory game format can be transformed 
+into a tool for both entertainment and education.
+References:
+Match the Memory n.d., Play Matching Games Online, Match the Memory, viewed 3 June 2025, https://matchthememory.com/play.
+
+Memozor n.d., Free Online Memory Games for All Ages, Memozor, viewed 3 June 2025, https://www.memozor.com/memory-games.
+
+Memory Matching n.d., Free Online Memory Matching Games, MemoryMatching.com, viewed 3 June 2025, https://memorymatching.com.-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -42,15 +66,15 @@
       <div class="game-board" id="gameBoard"></div> <!-- cards are added here-->
     </div>
 
-    <!-- fun facts box-->
+    <!-- fun facts box (hide before 2 cards being opened)-->
     <div class="fun-facts">
       <h3>💡 Fun Facts</h3>
-      <div id="funFact" class="hidden">Click on matching cards to learn interesting facts!</div>
+      <div id="funFact" class="hidden">Click on matching cards to learn interesting facts</div>
     </div>
   </div>
 
-  <!-- ending scene when completed-->
-  <div id="celebration" class="hidden">
+  <!-- ending scene when completed (hide before completed the game)-->
+  <div id="celebration" class="hidden"> 
     <div class="celebration-content">
       <h2>🎉 Congratulations! 🎉</h2>
       <p>You completed the game!</p>
