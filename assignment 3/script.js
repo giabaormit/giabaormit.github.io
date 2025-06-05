@@ -1,15 +1,15 @@
 // all the cards with their info
 const cardsData = [
-    { name: 'Camera', fact: 'Different cameras have varying sensor sizes that affect image quality and depth of field.', img: '📷' },
-    { name: 'Laptop', fact: 'High-performance laptops with dedicated GPUs are essential for smooth video editing workflows.', img: '💻' },
-    { name: 'Tripod', fact: 'Tripods not only stabilize shots but also enable consistent framing for professional results.', img: '🎥' },
-    { name: 'Microphone', fact: 'Directional microphones can isolate specific sound sources while reducing background noise.', img: '🎤' },
-    { name: 'Lighting Kit', fact: 'Professional lighting setups use the three-point lighting technique for optimal subject illumination.', img: '💡' },
-    { name: 'Drone', fact: 'Modern drones can capture 4K footage and offer intelligent flight modes for cinematic shots.', img: '🚁' },
-    { name: 'Gimbal', fact: 'Electronic gimbals use gyroscopes and motors to counteract camera shake in real-time.', img: '🎬' },
-    { name: 'Green Screen', fact: 'Chroma key technology allows for seamless background replacement in post-production.', img: '🟢' },
-    { name: 'Memory Card', fact: 'High-speed memory cards with fast write speeds prevent dropped frames during recording.', img: '💾' },
-    { name: 'Editing Software', fact: 'Modern editing software uses GPU acceleration to handle multiple 4K video streams simultaneously.', img: '✂️' },
+    { name: 'Sensor', fact: 'Different cameras have different sensor sizes that affect image quality and depth of field.', img: '📷' },
+    { name: 'Laptop', fact: 'A portable tool for post-production work', img: '💻' },
+    { name: 'Camera', fact: 'Different types of camera: DSLR, Mirrorless, Compact,etc.', img: '🎥' },
+    { name: 'Microphone', fact: 'Perfect for isolate specific sound sources while reducing background noise is directional microphone', img: '🎤' },
+    { name: 'Lighting Kit', fact: 'Professional lighting setups use the three-point lighting technique for optimal subject illumination and exposure.', img: '💡' },
+    { name: 'FPV', fact: 'Nowadays, many Hollywood movies tend to use FPV instead of drones due to their flexibility and dynamic shot', img: '🚁' },
+    { name: 'Gimbal', fact: 'Electronic gimbals use gyroscopes and motors to reduce camera shake and make the motion smoother when filming.', img: '🎬' },
+    { name: 'Green Screen', fact: 'Use for special VFX in post-production.', img: '🟢' },
+    { name: 'Memory Card', fact: 'CFexpress Type A cards offer read speeds up to 800 MB/s when top tier SD cards max out around 300 MB/s', img: '💾' },
+    { name: 'Editing Software', fact: 'Davinci Resolve is getting more and more popular nowadays for everyone use instead of Premiere Pro ', img: '✂️' },
     { name: 'External Monitor', fact: 'Color-calibrated external monitors ensure accurate color representation during filming.', img: '🖥️' },
     { name: 'Clapperboard', fact: 'Digital clapperboards can sync with cameras and automatically log scene information.', img: '🎞️' }
 ];
