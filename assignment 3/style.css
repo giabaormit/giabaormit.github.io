@@ -332,7 +332,7 @@ button:hover {
     border-left: 4px solid #6c757d; 
 }
 
-/* celebration box position and darken the screen to bring attention to the ending text box*/
+/* celebration box position and darken the screen to bring attention to the box*/
 #celebration { 
     position: fixed; 
     top: 0; 
@@ -363,7 +363,7 @@ button:hover {
     color: #495057; 
 }
 
-/*hide elements */
+/*hide fun facts box before the game and ending box before finish the game (!important override the display conflicting style)*/
 .hidden { 
     display: none !important; 
 }
