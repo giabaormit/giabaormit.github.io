@@ -1,4 +1,4 @@
-/* basic styles for the page */
+
 body { 
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
     background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); 
@@ -8,7 +8,7 @@ body {
     padding: 0;
 } 
 
-/* dark theme - trying to make it look good */
+/* dark theme*/
 body.dark { 
     background: linear-gradient(135deg, #212529 0%, #343a40 100%); 
     color: #f8f9fa; 
@@ -35,7 +35,7 @@ body.dark button:hover {
     background: #495057; 
 }
 
-/* sidebar stuff for dark mode */
+/* match box dark mode */
 body.dark .completed-matches { 
     background: rgba(33, 37, 41, 0.9); 
 }
@@ -44,18 +44,18 @@ body.dark .completed-matches h3 {
     color: #f8f9fa; 
 }
 
-/* game board dark styling */
+/* game board dark mode */
 body.dark .game-board { 
     background: rgba(33, 37, 41, 0.9); 
 }
 
-/* card styling for dark theme */
+/* cards style for dark theme */
 body.dark .card-back { 
     background: #343a40; 
     border-color: #495057; 
     color: #f8f9fa; 
 }
-
+/* fact box dark mode*/
 body.dark .fun-facts { 
     background: rgba(33, 37, 41, 0.9); 
 }
@@ -64,7 +64,7 @@ body.dark .fun-facts h3 {
     color: #f8f9fa; 
 }
 
-/* modal dark theme */
+/* ending box dark theme */
 body.dark .celebration-content { 
     background: #343a40; 
 }
@@ -73,7 +73,7 @@ body.dark .celebration-content h2 {
     color: #f8f9fa; 
 }
 
-/* main container layout */
+/* main container layout format */
 .game-container { 
     max-width: 1200px; 
     margin: 0 auto; 
@@ -84,7 +84,7 @@ body.dark .celebration-content h2 {
     min-height: 100vh; 
 }
 
-/* header section */
+/* header section (light) */
 header { 
     grid-column: 1 / -1; 
     text-align: center; 
@@ -96,7 +96,7 @@ header {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 }
 
-/* main title */
+/* main title (neutral color for both light and dark mode) */
 h1 { 
     font-size: 2.5rem; 
     font-weight: 700; 
@@ -107,7 +107,7 @@ h1 {
     background-clip: text; 
 }
 
-/* control buttons area */
+/* control buttons area format */
 .controls { 
     display: flex; 
     justify-content: center; 
@@ -116,7 +116,7 @@ h1 {
     margin: 20px 0; 
 }
 
-/* button and select styling */
+/* hint, reset and theme button  styling (light)*/
 button { 
     padding: 12px 18px; 
     font-size: 1rem; 
@@ -155,7 +155,7 @@ button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
 }
 
-/* stats display */
+/* stats (time and moves) format */
 .stats { 
     display: flex; 
     justify-content: center; 
@@ -165,7 +165,7 @@ button:hover {
     margin-top: 15px; 
 }
 
-/* left sidebar for completed matches */
+/* completed matches box and text (light) */
 .completed-matches { 
     background: rgba(255, 255, 255, 0.9); 
     border-radius: 12px; 
@@ -183,7 +183,7 @@ button:hover {
     color: #495057; 
 }
 
-/* individual match items */
+/* match items box and icons format*/
 .match-item { 
     display: flex; 
     align-items: center; 
@@ -195,7 +195,6 @@ button:hover {
     font-size: 0.9rem; 
 }
 
-/* icon for match items */
 .match-item-icon { 
     width: 30px; 
     height: 30px; 
@@ -208,14 +207,14 @@ button:hover {
     font-size: 0.8rem; 
 }
 
-/* game area container */
+/* game board container */
 .game-area { 
     display: flex; 
     flex-direction: column; 
     align-items: center; 
 }
 
-/* main game board - changed to 6x4 layout */
+/* game board (light) */
 .game-board { 
     display: grid; 
     grid-template-columns: repeat(6, 1fr); 
@@ -246,12 +245,12 @@ button:hover {
     transform-style: preserve-3d; 
 }
 
-/* flipped card state */
+/* flipped card state for smoothness*/
 .card.flipped .card-inner { 
     transform: rotateY(180deg); 
 }
 
-/* front and back of cards */
+/* front face cards (neutral color for both mode)*/
 .card-front { 
     position: absolute; 
     width: 100%; 
@@ -266,7 +265,7 @@ button:hover {
     background: linear-gradient(135deg, #adb5bd, #6c757d); 
     border: 2px solid #495057; 
 }
-
+/*card back (light)*/
 .card-back { 
     position: absolute; 
     width: 100%; 
@@ -284,7 +283,7 @@ button:hover {
     color: #495057; 
 }
 
-/* question mark on front of card */
+/* question mark in front of card */
 .card-front::after { 
     content: "?"; 
     font-size: 2rem; 
@@ -292,21 +291,20 @@ button:hover {
     color: #fff; 
 }
 
-/* image on back of card */
+/* image and text on back of card */
 .card-back img { 
     max-width: 50px; 
     max-height: 50px; 
     margin-bottom: 5px; 
 }
 
-/* text on back of card */
 .card-back div { 
     font-size: 0.8rem; 
     font-weight: 600; 
     text-align: center; 
 }
 
-/* right sidebar for fun facts */
+/* fun facts box (light)*/
 .fun-facts { 
     background: rgba(255, 255, 255, 0.9); 
     border-radius: 12px; 
@@ -324,7 +322,7 @@ button:hover {
     color: #495057; 
 }
 
-/* fun fact display area */
+/* fun fact text box (neutral color for both mode)*/
 #funFact { 
     font-size: 1rem; 
     line-height: 1.5; 
@@ -334,7 +332,7 @@ button:hover {
     border-left: 4px solid #6c757d; 
 }
 
-/* celebration modal overlay */
+/* celebration box position and darken the screen to bring attention to the ending text box*/
 #celebration { 
     position: fixed; 
     top: 0; 
@@ -348,7 +346,7 @@ button:hover {
     z-index: 1000; 
 }
 
-/* celebration modal content */
+/* celebration box (light)*/
 .celebration-content { 
     background: #fff; 
     padding: 40px; 
@@ -365,7 +363,7 @@ button:hover {
     color: #495057; 
 }
 
-/* utility class to hide elements */
+/*hide elements */
 .hidden { 
     display: none !important; 
 }

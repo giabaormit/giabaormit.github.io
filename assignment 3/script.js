@@ -14,7 +14,7 @@ const cardsData = [
     { name: 'Clapperboard', fact: 'Digital clapperboards can sync with cameras and automatically log scene information.', img: '🎞️' }
 ];
 
-// variables for the game
+// initialise variables for the game
 let cards = [];
 let flipped = [];
 let matched = 0;
@@ -32,8 +32,6 @@ const timerEl = document.getElementById('timer');
 const movesEl = document.getElementById('moves');
 const funFactEl = document.getElementById('funFact');
 const celebration = document.getElementById('celebration');
-
-// more elements
 const finalTime = document.getElementById('finalTime');
 const finalMoves = document.getElementById('finalMoves');
 const themeSelect = document.getElementById('themeSelect');
@@ -80,7 +78,6 @@ function startTimer() {
             seconds = '0' + seconds;
         }
         
-        // update display
         timerEl.textContent = minutes + ':' + seconds;
     }, 1000);
 }
@@ -201,7 +198,7 @@ function resetGame() {
 
 // handle when user clicks a card
 function handleCardClick(e) {
-    const card = e.currentTarget;
+    const card = e.currentTarget; // initial card as e for short as so it can be reused in other functions those are click related 
     
     // dont do anything if card already flipped or if 2 cards already flipped
     if (card.classList.contains('flipped')) {
@@ -239,7 +236,7 @@ function handleCardClick(e) {
         
         // check if names match
         if (cards[firstCard.index].name === cards[secondCard.index].name) {
-            // its a match!
+            // if its a match
             setTimeout(function() {
                 firstCard.element.classList.add('matched');
                 secondCard.element.classList.add('matched');
@@ -271,7 +268,7 @@ function handleCardClick(e) {
                 }
             }, 500);
         } else {
-            // not a match, flip cards back
+            // if its not a match, flip cards back
             setTimeout(function() {
                 firstCard.element.classList.remove('flipped');
                 secondCard.element.classList.remove('flipped');
@@ -329,7 +326,7 @@ themeSelect.addEventListener('change', function(e) {
     }
 });
 
-// close modal when clicking outside
+// close ending screen when clicking outside
 celebration.addEventListener('click', function(e) {
     if (e.target === celebration) {
         celebration.classList.add('hidden');
