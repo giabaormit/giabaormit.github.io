@@ -105,7 +105,7 @@ function createCard(card, index) {
     const cardBack = document.createElement('div');
     cardBack.classList.add('card-back');
     
-    // add emoji and name to back
+    // add emoji and name to back of the card
     const emoji = document.createElement('div');
     emoji.style.fontSize = '2rem';
     emoji.style.marginBottom = '5px';
@@ -288,7 +288,7 @@ playAgainBtn.addEventListener('click', function() {
     resetGame();
 });
 
-// hint button - shows all cards briefly
+// hint button (shows all cards briefly)
 hintBtn.addEventListener('click', function() {
     // find all unflipped cards
     const allCards = document.querySelectorAll('.card');
